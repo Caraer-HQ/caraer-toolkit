@@ -1,0 +1,15 @@
+flowchart TB
+    Primary["Primary Record"]
+    AdditiveA["Customer Extension"]
+    AdditiveB["Reseller Extension"]
+    ExclusiveGroup["Exclusive lifecycle group"]
+    Candidate["Candidate"]
+    Employee["Employee"]
+    Alumni["Alumni"]
+
+    Primary --- AdditiveA
+    Primary --- AdditiveB
+    Primary --- ExclusiveGroup
+    ExclusiveGroup --> Candidate
+    Candidate --> Employee
+    Employee --> Alumni

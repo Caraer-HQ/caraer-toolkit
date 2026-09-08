@@ -1,0 +1,11 @@
+flowchart LR
+    Contact["Primary Object: Contact<br/><br/>Properties<br/>First name<br/>Last name<br/>Email<br/>Phone"]
+
+    Customer["Extended Object: Customer<br/><br/>Properties<br/>Customer since<br/>Account manager<br/>Renewal date"]
+    Reseller["Extended Object: Reseller<br/><br/>Properties<br/>Partner tier<br/>Commission %<br/>Territory"]
+
+    Customer -->|extends data model| Contact
+    Reseller -->|extends data model| Contact
+
+    Customer -.->|shares selected properties| Contact
+    Reseller -.->|shares selected properties| Contact

@@ -1,0 +1,18 @@
+flowchart LR
+    README["README"]
+    Data["Data"]
+    Automations["Automations"]
+    Access["Users & Access"]
+    CMS["CMS"]
+    CompanySettings["Company Settings"]
+    Glossary["Glossary"]
+    Changelog["Changelog"]
+
+    README --> Data
+    README --> Automations
+    README --> Access
+    README --> CMS
+    README --> CompanySettings
+    Data --> Glossary
+    Automations --> Glossary
+    Changelog --> README

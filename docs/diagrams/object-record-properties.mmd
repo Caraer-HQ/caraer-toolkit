@@ -1,0 +1,13 @@
+flowchart TB
+    Contact["Object: Contact"]
+
+    John["Record: John Smith"]
+    Jane["Record: Jane Smith"]
+
+    JohnProperties["Properties<br/>First name: John<br/>Last name: Smith<br/>Email: john@example.com"]
+    JaneProperties["Properties<br/>First name: Jane<br/>Last name: Smith<br/>Email: jane@example.com"]
+
+    Contact --> John
+    Contact --> Jane
+    John --> JohnProperties
+    Jane --> JaneProperties

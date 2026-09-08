@@ -1,0 +1,21 @@
+flowchart TB
+    Customer["Object: Customer"]
+    Reseller["Object: Reseller"]
+    Onboarding["Object: Onboarding"]
+
+    Table["Trait: Table"]
+    Page["Trait: Page"]
+    Flow["Trait: Flow"]
+    Task["Trait: Task"]
+    Analytics["Trait: Analytics"]
+
+    Customer --> Table
+    Customer --> Page
+
+    Reseller --> Table
+    Reseller --> Page
+
+    Onboarding --> Table
+    Onboarding --> Flow
+    Onboarding --> Task
+    Onboarding --> Analytics
