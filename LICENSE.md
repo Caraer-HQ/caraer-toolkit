@@ -1,47 +1,92 @@
-# Caraer Community License v0.1
+# Caraer Community Licence v1.0
 
-Copyright © 2026 Caraer B.V. All rights reserved except as expressly granted below.
+Copyright © 2026 Caraer B.V.
 
-## 1. Purpose and scope
+## Start here
 
-This source-available licence applies to the material in this repository, including documentation, templates, skills, examples, and CMS assets (the **Materials**). It is not an open-source licence.
+Caraer shares these Materials so that people can build better recruitment operations together. You may use them, reshape them for your own environment, and contribute improvements back to the community. The freedom in this Licence is practical: it supports real Caraer work. It is not permission to turn the Material itself into someone else's product.
 
-## 2. Permission to use
+This Licence applies to the documentation, templates, skills, examples, CMS assets, and other content published in this repository (the **Materials**). The Materials are source-available, not open source.
 
-Subject to this licence, Caraer B.V. grants each recipient a worldwide, non-exclusive, royalty-free licence to copy, run, and modify the Materials solely to implement, operate, or support that recipient's own Caraer workspace and internal business processes.
+Using, copying, changing, or sharing the Materials means you accept this Licence. If you act for an organisation, you confirm that you can accept it for that organisation and its Affiliates.
 
-Recipients may share the Materials with their employees and contractors where necessary for that permitted use, provided those people are bound by terms at least as protective as this licence.
+## What you can do
 
-## 3. Conditions
+If you are an individual or an organisation with annual gross revenue of no more than **€1,000,000**, Caraer B.V. gives you a worldwide, non-exclusive, royalty-free, revocable, non-transferable, and non-sublicensable licence to:
 
-When sharing an unmodified copy of the Materials as permitted above, recipients must retain this licence, copyright notices, and attribution to Caraer B.V. Modified Materials must identify that changes were made.
+- use and copy the Materials in your own Caraer workspace;
+- adapt the Materials for your own recruitment operations, processes, integrations, and internal work;
+- use the adapted Materials in your commercial or non-commercial internal operations; and
+- share the Materials and your adaptations with colleagues, contractors working for you, and the Caraer community, as described below.
 
-## 4. Restrictions
+Your annual gross revenue includes the revenue of your Affiliates, measured over your most recently completed financial year. **Affiliate** means an entity that controls, is controlled by, or is under common control with you; **control** means ownership or control of more than 50% of voting interests.
 
-Without Caraer B.V.'s prior written permission, recipients may not:
+The €1,000,000 limit is not a platform subscription limit. It is the point at which the community licence stops being the right commercial arrangement. If you exceed it, or expect to exceed it, you may continue to use the Materials only under a written Caraer **Partner & Reseller Agreement** or another written licence from Caraer B.V.
 
-- sell, sublicense, distribute, publish, or make the Materials available as a standalone product, template library, training product, or service for third parties;
-- use the Materials to develop, market, provide, or operate a product or hosted service that substantially competes with Caraer's platform or implementation services;
-- remove copyright, licence, attribution, or proprietary notices;
-- imply that Caraer B.V. endorses a recipient, its modifications, or its services; or
-- use the Caraer name, logos, or other brand assets except as allowed by the trademark policy.
+## Build in the open, keep the trail clear
 
-## 5. Ownership and feedback
+Community sharing is welcome. You may publish your adaptations, improvements, and examples for others to use, including through a public repository, provided that you:
 
-Caraer B.V. retains all rights, title, and interest in the Materials and its trademarks. No patent, trademark, or other right is granted by implication. Feedback is voluntary; if a recipient provides feedback, Caraer B.V. may use it without obligation or compensation.
+1. include this Licence with the shared material;
+2. keep Caraer's copyright, licence, and proprietary notices intact;
+3. state that you changed the Material, describe the change briefly, and date it; and
+4. make it clear which notices relate to Caraer's original Material and which relate to your own work.
 
-## 6. Termination
+You may add your own copyright notice to your contribution. You remain responsible for ensuring that anything you contribute is lawful and that you have the rights needed to share it.
 
-This licence terminates automatically if a recipient materially breaches it and does not cure the breach within 30 days after written notice. On termination, the recipient must stop using and distributing the Materials, except where applicable law requires otherwise.
+## Partners make implementation happen
 
-## 7. Disclaimer and liability
+Caraer encourages specialists to help organisations implement, improve, train on, and operate Caraer. Those services are part of a healthy community.
 
-The Materials are provided "as is" without warranties of any kind. To the maximum extent permitted by law, Caraer B.V. is not liable for indirect, incidental, special, consequential, or punitive damages arising from use of the Materials.
+An organisation that has a current written Partner & Reseller Agreement with Caraer B.V. may use the Materials to provide those services to its customers, within the scope of that agreement. The Partner & Reseller Agreement governs if it conflicts with this Licence. It may also set commercial terms, branding permissions, support responsibilities, and permissions for customer-facing distribution.
 
-## 8. Governing law
+This community licence alone does not authorise implementation, consulting, managed services, sublicensing, or resale for third parties.
 
-This licence is governed by the laws of the Netherlands, excluding conflict-of-law rules. The courts competent for Caraer B.V.'s registered office have exclusive jurisdiction, unless mandatory law provides otherwise.
+## What stays with Caraer
 
-## 9. Legal review
+Caraer B.V. owns the Materials, its names, logos, product names, and other brand assets. This Licence gives you only the permissions written here. It does not grant a patent right, a trademark licence, or a right to access Caraer's platform, hosted services, APIs, support, or other paid services. Those are governed by the applicable Caraer agreement.
 
-This v0.1 licence is an initial operational draft and should be reviewed by qualified Dutch legal counsel before broad external rollout. Caraer B.V. may publish later versions for future releases; a later version does not change rights already granted under this version unless the recipient agrees.
+You own the parts of an adaptation that you create independently. Caraer continues to own the underlying Materials and all rights in them.
+
+Do not use Caraer branding in a way that suggests endorsement, certification, partnership, or ownership unless a separate written agreement allows it. See the [Caraer trademark policy](TRADEMARKS.md).
+
+## Boundaries
+
+Without Caraer B.V.'s prior written permission, you may not:
+
+- sell, license, sublicense, or offer the Materials or adaptations as a standalone template library, training product, or service;
+- use the Materials to create, market, or operate a product or hosted service that substantially competes with Caraer's platform;
+- remove or hide copyright, licence, attribution, or proprietary notices; or
+- represent an adaptation as an official Caraer product or an approved Caraer implementation.
+
+Nothing here prevents an authorised Caraer partner or reseller from earning revenue from its own implementation, consulting, training, support, or optimisation services under its Partner & Reseller Agreement.
+
+## Responsible use
+
+You must follow applicable law when using or sharing the Materials. If your use also involves Caraer services, you must follow Caraer's applicable Acceptable Use Policy and service terms.
+
+You must comply with applicable European Union and Dutch export-control and sanctions laws. You may not export, re-export, transfer, make available, or permit access to the Materials in a way that breaches those laws or applicable restrictive measures.
+
+You will indemnify and hold Caraer B.V., its Affiliates, and their personnel harmless from third-party claims, losses, liabilities, and reasonable costs arising from your use, adaptation, sharing, or distribution of the Materials in breach of this Licence or applicable law.
+
+## Ending the permission
+
+This Licence starts when you first use the Materials. Caraer B.V. may end it if you materially breach it. Where a breach can be fixed, Caraer will give you 30 days after written notice to fix it. If the breach is not fixed in time, or cannot be fixed, the permission ends.
+
+When the permission ends, stop using and sharing the Materials and your adaptations, except where keeping a copy is required by law. The sections headed **What stays with Caraer**, **Boundaries**, **Responsible use**, **Ending the permission**, **No promises**, **The legal home**, and **Versioning** continue after termination.
+
+## No promises
+
+The Materials are provided **as is** and **as available**. Caraer B.V. gives no warranties, whether express, implied, statutory, or otherwise, including warranties of title, non-infringement, merchantability, or fitness for a particular purpose.
+
+To the maximum extent permitted by law, Caraer B.V. is not liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for lost profits, revenue, data, or business opportunities, arising from the Materials or this Licence.
+
+## The legal home
+
+Dutch law governs this Licence, excluding conflict-of-law rules. Disputes belong before the court with jurisdiction over Caraer B.V.'s registered office, unless mandatory law says otherwise.
+
+Formal notices to Caraer B.V. must be sent in writing to: **Caraer B.V., Attn: Legal, Bos en Lommerplantsoen 1, 1055 AA Amsterdam, the Netherlands.** Caraer may give notices to you at the contact details you provided, or by a clear notice in the relevant Caraer service or repository.
+
+## Versioning
+
+This is version 1.0 of the Caraer Community Licence. Caraer B.V. may publish later versions for later releases. A later version does not change the rights granted to you under this version unless you agree to the later version.

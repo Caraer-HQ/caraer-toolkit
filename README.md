@@ -22,4 +22,4 @@ The Caraer team maintains the source library privately. This repository is a gen
 
 ## Licence and trademarks
 
-This repository is source-available under the [Caraer Community License](LICENSE.md), not an open-source licence. It permits customers to use and adapt the material for their own Caraer implementation while restricting resale, redistribution, and competing services. The [trademark policy](TRADEMARKS.md) covers the Caraer name and branding.
+This repository is source-available under the [Caraer Community Licence](LICENSE.md), not an open-source licence. It permits people and organisations with up to €1 million in annual gross revenue to use, adapt, and share Materials for Caraer work. Larger organisations and third-party implementation providers need a written Caraer Partner & Reseller Agreement or other written licence. The [trademark policy](TRADEMARKS.md) covers the Caraer name and branding.
