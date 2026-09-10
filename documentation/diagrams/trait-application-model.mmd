@@ -1,0 +1,11 @@
+flowchart LR
+    Object["Object Definition"]
+    TraitA["Trait Assignment"]
+    RecordA["Record A"]
+    RecordB["Record B"]
+
+    Object --> TraitA
+    Object --> RecordA
+    Object --> RecordB
+    TraitA -.->|behaviour applies| RecordA
+    TraitA -.->|behaviour applies| RecordB

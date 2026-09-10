@@ -1,0 +1,11 @@
+flowchart TB
+    Question["What does the connection mean?"]
+    SameEntity["Same underlying entity,<br/>additional data model?"]
+    Independent["Two independently existing Records?"]
+    Extension["Use an Extended Object"]
+    Relation["Use a Relation"]
+
+    Question --> SameEntity
+    SameEntity -->|Yes| Extension
+    SameEntity -->|No| Independent
+    Independent -->|Yes| Relation

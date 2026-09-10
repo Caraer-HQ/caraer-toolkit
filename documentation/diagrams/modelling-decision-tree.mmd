@@ -1,0 +1,22 @@
+flowchart TD
+    Start["What are you modelling?"]
+    Behaviour["Reusable behaviour<br/>for an Object?"]
+    Data["Stored data?"]
+    AllRecords["Belongs directly to all Records<br/>of this Object?"]
+    SameEntity["Role or context-specific data<br/>for the same entity?"]
+    Independent["Independent entity or transaction?"]
+
+    Trait["Trait"]
+    Property["Property"]
+    Extended["Extended Object"]
+    Relation["New Object + Relation"]
+
+    Start --> Behaviour
+    Behaviour -->|Yes| Trait
+    Behaviour -->|No| Data
+    Data -->|Yes| AllRecords
+    AllRecords -->|Yes| Property
+    AllRecords -->|No| SameEntity
+    SameEntity -->|Yes| Extended
+    SameEntity -->|No| Independent
+    Independent --> Relation

@@ -1,0 +1,15 @@
+flowchart TB
+    Object["Object"]
+    Record["Record"]
+    Property["Property"]
+    Extended["Extended Object"]
+    Shared["Shared Property"]
+    Trait["Trait"]
+    Relation["Relation"]
+
+    Object -->|contains| Record
+    Object -->|defines| Property
+    Extended -->|extends data model of| Object
+    Extended -->|exposes to primary context| Shared
+    Object -->|has behaviour through| Trait
+    Relation -->|connects| Record
