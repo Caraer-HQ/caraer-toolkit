@@ -18,7 +18,7 @@ See each skill or template README for its dependencies and verification steps.
 
 ## Source of truth
 
-The Caraer team maintains the source library privately. This repository is a generated public mirror: contributions and release requests should be raised with Caraer rather than edited directly in the mirror.
+The Caraer team maintains the source toolkit privately. This repository is a generated public mirror: contributions and release requests should be raised with Caraer rather than edited directly in the mirror.
 
 ## Licence and trademarks
 

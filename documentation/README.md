@@ -40,4 +40,4 @@ The documentation website is organised into main-menu sections. Each folder is a
 
 Practical examples are available under [Data](Data/Practical%20Examples.md).
 
-This folder is customer-facing. Technical API, MCP, permission-scope, and implementation notes are maintained outside the public library.
+This folder is customer-facing. Technical API, MCP, permission-scope, and implementation notes are maintained outside the public toolkit.

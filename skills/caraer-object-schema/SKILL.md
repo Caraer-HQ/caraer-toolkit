@@ -1,18 +1,18 @@
 ---
 name: "caraer-object-schema"
-description: "Design, audit, and maintain a reusable Caraer Object Templates Library, then selectively apply templates to individual Caraer portals."
+description: "Design, audit, and maintain the reusable Caraer Object Templates Toolkit, then selectively apply templates to individual Caraer portals."
 ---
 
-# Caraer Object Templates Library
+# Caraer Object Templates Toolkit
 
-Use this skill to maintain the reusable library at `/home/janhein/Codex/caraer/objects templates/`, or to choose and adapt its patterns for one identified Caraer portal.
+Use this skill to maintain the reusable toolkit at `/home/janhein/Codex/caraer/caraer-toolkit/public/object-templates/`, or to choose and adapt its patterns for one identified Caraer portal.
 
-The library is a cross-portal catalogue of best-practice object, property, relation, and trait patterns. It is not a prescribed Caraer Main schema and it does not create a requirement that every portal use every template.
+The toolkit is a cross-portal catalogue of best-practice object, property, relation, and trait patterns. It is not a prescribed Caraer Main schema and it does not create a requirement that every portal use every template.
 
 ## Library principles
 
 - Treat each template as an independent, composable module. Select only the objects, traits, properties, and relations that the portal needs.
-- Keep reusable patterns generic: no customer records, branding, credentials, or customer-specific overrides belong in the central library.
+- Keep reusable patterns generic: no customer records, branding, credentials, or customer-specific overrides belong in the central toolkit.
 - Keep a portal’s selected templates, implementation decisions, and approved overrides in that portal’s workspace.
 - Prefer the smallest stable object model that preserves ownership, reporting, and integration needs.
 - Preserve provider field names and values where the template imports external data; document any normalization or aliases.
@@ -20,7 +20,7 @@ The library is a cross-portal catalogue of best-practice object, property, relat
 
 ## Common ownership patterns
 
-Use these patterns when they fit the portal; they are guidance, not mandatory library-wide objects.
+Use these patterns when they fit the portal; they are guidance, not mandatory toolkit-wide objects.
 
 - `Contact`: person identity, contact channels, platforms, and person-level employment details such as `job_title`.
 - Contact extensions: `Lead` for marketing, `Qualified Lead` for sales qualification, `Customer` for contract/onboarding/support, and `Alumni` for former-relationship context.
@@ -31,12 +31,12 @@ Use these patterns when they fit the portal; they are guidance, not mandatory li
 ## Workflow
 
 1. Identify the target portal and whether the work concerns a primary object, extension, property, trait, relation, or provider-import template.
-2. Check the library for the smallest applicable template set; preserve existing user changes.
+2. Check the toolkit for the smallest applicable template set; preserve existing user changes.
 3. Check the live target portal as a naming and behaviour reference when access is available.
 4. Decide what the portal adopts, excludes, or overrides. Keep the choice and rationale in that portal’s workspace, not in the central template.
 5. Assign every property to the narrowest correct owner and document object hierarchy, relations, traits, type, format, options, and provider mappings in the selected template.
 6. Keep every object template’s `## Traits` section non-empty, covering enabled, optional, and excluded traits.
-7. Audit the selected templates and report differences between the library and the live portal; never silently rewrite live data.
+7. Audit the selected templates and report differences between the toolkit and the live portal; never silently rewrite live data.
 8. After an authorized live write, verify the persisted response and update the portal documentation.
 
 ## Shared-property reuse and change approval
@@ -63,4 +63,4 @@ Before creating, attaching, or updating a property, look up its existing portal-
 
 - Ask before mutating live schema, relations, permissions, or publishing changes.
 - Do not create inverse extensions merely because an API does not support the intended direction.
-- Keep customer-specific properties and data out of the central library.
+- Keep customer-specific properties and data out of the central toolkit.

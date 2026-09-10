@@ -45,7 +45,7 @@ flowchart LR
 
 ### Technical source moved
 
-- The former Object Model Guide and Technical Specification are retained in the private Caraer concept library for internal reference.
+- The former Object Model Guide and Technical Specification are retained in the private Caraer concept toolkit for internal reference.
 - The customer-facing folder now contains plain-language chapters only.
 
 ### Corrected terminology

@@ -50,7 +50,7 @@ the stored/imported value; visual metadata must never change it.
 
 The option tables state their chosen treatment and include the exact `color`
 and `icon` values to provision. An em dash (`—`) means omit that optional
-field. The library uses CSS hex colours and Caraer icon-picker identifiers;
+field. The toolkit uses CSS hex colours and Caraer icon-picker identifiers;
 verify an icon exists in the target portal before a live schema write.
 
 ## Shared effective status
