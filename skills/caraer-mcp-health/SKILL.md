@@ -1,12 +1,12 @@
 ---
-name: "customer-mcp"
-description: "Perform a lightweight customer MCP access check and guide gradual API-key-to-OAuth migration."
+name: "caraer-mcp-health"
+description: "Check Caraer MCP health and guide gradual API-key-to-OAuth migration."
 user-invocable: true
 ---
 
-# Customer MCP
+# Caraer MCP health
 
-Use for `/customer-mcp [customer]` or `/customer_mcp [customer]`.
+Use for `/caraer-mcp-health [customer]` or `/caraer_mcp_health [customer]`.
 
 ## Default behavior: lightweight check
 
@@ -49,7 +49,7 @@ Never substitute the shared Caraer token or another customer’s credential.
 1. Send one JSON-RPC `initialize` request with a 20–30 second timeout:
 
 ```json
-{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"customer-mcp-light-check","version":"1.0"}}}
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"caraer-mcp-health-check","version":"1.0"}}}
 ```
 
 2. If initialize returns HTTP 200 and a JSON-RPC result, send one `tools/list` request with the same timeout:
