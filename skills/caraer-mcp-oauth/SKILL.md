@@ -15,12 +15,15 @@ description: "Guide reliable Caraer OAuth + PKCE customer MCP setup from app cre
 
 ## Choose the connection path
 
-Use the same ordered workflow for Claude and Codex. Use the client adapter only to open the MCP connection or OAuth browser; do not change the confirmed portal, app approval, credential handling, scope review, refresh, or validation.
-
-- Claude: add a custom remote MCP connector named `Caraer — <portalname>` (or the host client's equivalent) using `https://v2.api.caraer.com/api/v2/mcp`; start Connect and use the browser flow when Claude opens it.
-- Codex: configure the same remote endpoint for the server named `caraer-<portalname>` and start the configured OAuth flow when Codex offers it.
-- In either client, start a fresh session after successful connection if authentication does not hot-reload.
-- Installed Caraer App provider: use app-installation endpoints only with a confirmed `appUuid`; never assume it is an OAuth `client_id`.
+1. Identify the client or host currently in use before configuring or opening OAuth. The supported choices are OpenClaw, Hermes or a comparable agent host, Codex, Claude, Cursor, or another client explicitly confirmed by the operator. Use the selected client's native MCP connector, callback listener, credential store, and login action; do not substitute another client's CLI or callback flow.
+2. Configure Caraer MCP with the streamable HTTP transport in every client. Do not select SSE for `https://v2.api.caraer.com/api/v2/mcp`.
+3. When OpenClaw, Hermes, or a comparable agent host is in use, ask which runtime/client should perform the MCP connection—its native runtime, Codex, or another supported client—because these hosts can run more than one. Continue only after that preference is clear. Do not start a Codex CLI OAuth flow merely because the task is running inside an agent host.
+4. OpenClaw, Hermes, or comparable agent host: configure the confirmed remote MCP server in the selected host, scoped to the confirmed agent, with streamable HTTP, and use that host's own OAuth action when its native runtime is selected.
+5. Codex: configure the same remote endpoint with streamable HTTP for the server named `caraer-<portalname>` and start the configured OAuth flow when Codex is the selected runtime.
+6. Claude: add a custom remote MCP connector named `Caraer — <portalname>` (or the host client's equivalent) using `https://v2.api.caraer.com/api/v2/mcp` over streamable HTTP; start Connect and use the browser flow when Claude is the selected runtime.
+7. Cursor: configure the same remote endpoint in Cursor over streamable HTTP and start Cursor's native OAuth flow when Cursor is the selected runtime.
+8. Record the selected client/runtime and streamable HTTP transport in validation. Start a fresh session after successful connection if authentication does not hot-reload.
+9. Installed Caraer App provider: use app-installation endpoints only with a confirmed `appUuid`; never assume it is an OAuth `client_id`.
 
 ## Discover and isolate
 
@@ -63,7 +66,7 @@ Use the same ordered workflow for Claude and Codex. Use the client adapter only 
 
 ## Validate and report
 
-1. Run read-only MCP `initialize`, then `tools/list`; require HTTP 200, JSON-RPC results, and a non-empty tool list.
+1. Confirm the configured transport is streamable HTTP, then run read-only MCP `initialize` and `tools/list`; require HTTP 200, JSON-RPC results, and a non-empty tool list.
 2. Run one small read-only schema/object query, preferably `schema_help` first in a new working session or `object_list` with a small limit.
 3. Report only target, timestamp, status, tool count, non-sensitive tool names, and non-secret errors. Do not infer scopes, plan, business-data, task, or meter access from `tools/list`.
 4. Report **Succeeded** only after exchange plus all validations pass; otherwise report **Blocked** or **Failed**, the exact non-secret blocker, whether credentials were stored, and whether portal data changed.
