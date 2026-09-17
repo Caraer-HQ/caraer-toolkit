@@ -1,0 +1,84 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+version: 1
+site:
+  title: Caraer Toolkit
+  structure:
+    - type: section
+      key: section-documentation
+      title: Documentation
+      path: documentation
+      default: true
+      children:
+        - type: space
+          key: space-about-caraer
+          title: About Caraer
+          path: about-caraer
+          default: true
+          content:
+            directory: ./documentation/About Caraer
+        - type: space
+          key: space-data
+          title: Data
+          path: data
+          content:
+            directory: ./documentation/Data
+        - type: space
+          key: space-automations
+          title: Automations
+          path: automations
+          content:
+            directory: ./documentation/Automations
+        - type: space
+          key: space-users-access
+          title: Users & Access
+          path: users-access
+          content:
+            directory: ./documentation/Users & Access
+        - type: space
+          key: space-cms-documentation
+          title: CMS
+          path: cms
+          content:
+            directory: ./documentation/CMS
+        - type: space
+          key: space-company-settings
+          title: Company Settings
+          path: company-settings
+          content:
+            directory: ./documentation/Company Settings
+    - type: section
+      key: section-toolkit
+      title: Toolkit
+      path: toolkit
+      children:
+        - type: space
+          key: space-object-templates
+          title: Object Templates
+          path: object-templates
+          default: true
+          content:
+            directory: ./object-templates
+        - type: space
+          key: space-cms-patterns
+          title: CMS Patterns
+          path: cms-patterns
+          content:
+            directory: ./cms
+        - type: space
+          key: space-email-templates
+          title: Email Templates
+          path: email-templates
+          content:
+            directory: ./email-templates
+        - type: space
+          key: space-manuals
+          title: Manuals
+          path: manuals
+          content:
+            directory: ./manuels
+        - type: space
+          key: space-skills
+          title: Skills
+          path: skills
+          content:
+            directory: ./skills
