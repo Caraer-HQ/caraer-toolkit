@@ -97,12 +97,13 @@ site:
             directory: ./api-reference
     - type: section
       key: section-2
-      title: API Reference
-      path: api-reference-1
+      title: Apps
+      path: apps
+      description: ""
       children:
         - type: space
           key: space-2
-          title: API Reference
+          title: Apps
           path: api-reference
           default: true
           draft: true
