@@ -1,70 +1,73 @@
 # WhatsApp Object Template
 
-Status: Draft.
-
-Source: ClickUp list `1.9.2. - Activities - Action`.
+Status: Live Caraer Main schema reference, updated 2026-11-03; integration verification pending.
 
 ## Purpose
 
-`whatsapp` is the concrete message object for WhatsApp communication.
+One `whatsapp` record represents one incoming or outgoing message, not an entire
+conversation. Main stores the communication context; WhatsApp is transport.
 
 ## Traits
 
-### Inherited from `message`
+- Enabled: **Message**, **Table**, verified live.
+- Optional: **Analytics**, not enabled in the audited portal.
+- Excluded by default: Event, Action, Task, Page, Flow, User.
 
-WhatsApp records inherit **Table** and **Message** from the base Message Object.
+## Shared references and native model
 
-### Optional by workspace configuration
+- [System properties](../../system-properties.md).
+- [Message trait](../../traits/message.md).
+- [Message draft](../message.md) and [Activity draft](../activities.md) describe
+  the proposed family, not exact live native names.
 
-| Trait | When to enable it |
-| --- | --- |
-| **Analytics** | When delivery, response or conversation outcomes need reporting. |
+Live WhatsApp has both Message and Activity extension contexts. Shared native
+keys are `title` (required), `description`, `start_date`, `body`,
+`activity_status` (`open`, `done`), `pin`, `direction` (`inbound`,
+`outbound`), `external_id`, `thread_id`, `sent_at`, `received_at`,
+and `snippet`, plus System fields. Preserve these names rather than adding
+duplicate name, sender, recipient, or timestamp properties. The concrete object
+identifies the channel.
 
-## Hierarchy
+## WhatsApp properties
 
-- `activity`
-  - `message`
-    - `whatsapp`
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `conversation_id` | Gespreks-ID | Conversation ID | string | single-line | Activity | — | Hidden | - | — | Existing native conversation key, not unique per message. |
+| `phone_number` | Telefoonnummer | Phone number | string | phone | Details | — | - | - | — | Normalized remote participant; does not replace identity relations. |
+| `delivery_status` | Verzendstatus | Delivery status | single-select | single-select | Details | `pending`, `sending`, `sent`, `delivered`, `read`, `failed`, `unknown` | - | - | — | Never blindly retry uncertain delivery. |
+| `read_at` | Gelezen op | Read at | date | date | Details | — | Format: dd-MM-yyyy HH:mm | - | — | Provider-confirmed read timestamp only. |
+| `media_type` | Mediatype | Media type | single-select | single-select | Details | `text`, `image`, `audio`, `video`, `document`, `sticker`, `location`, `contact`, `other` | - | - | — | Content category. |
 
-## Inherited From `activity`
+## Identifiers and native relations
 
-- `activity_name`
-- `description`
-- `start_date`
-- `due_date`
-- `end_date`
-- `duration`
-- `outcome`
-- `progress`
-- `sort_order`
-- `notes`
+Use existing `external_id` for the provider-qualified message ID once its native
+write contract is verified; no duplicate `provider_message_id` was added. No
+Unique rule currently exists on it. Durable idempotency and locking are needed.
+Use `property_list` for complete inventory: `object_get(properties: true)`
+omitted native identifiers/timestamps during the audit.
 
-## Inherited From `message`
+Native `from`, `to`, `cc`, `bcc` target Contact. `reply_to` and
+`thread` target Message. Resolve actual person context rather than inventing
+Customer, Account or Ticket links. Explicit Lead-direction relations were
+added and verified on 2026-11-03:
 
-- `message_name`
-- `channel`
-- `direction`
-- `body`
-- `sender`
-- `recipient`
-- `thread_id`
-- `timestamp`
-- `external_id`
+| Label | Name | Type | Details |
+| --- | --- | --- | --- |
+| Sent by | `sent_by` | relation | WhatsApp → Lead sender; inbound to Caraer, `direction=inbound`. |
+| Received by | `received_by` | relation | WhatsApp → Lead recipient; outbound from Caraer, `direction=outbound`. |
 
-## Core Properties
+Both definitions are visible from Lead and WhatsApp; create record edges from
+the WhatsApp record to the matched Lead. Preserve native Contact relations.
+Ticket deduplication follows the Ticket contract.
 
-| Property | Type | Notes |
-| --- | --- | --- |
-| `conversation_id` | string | WhatsApp conversation identifier. |
-| `phone_number` | string/phone | Phone number used in the conversation. |
-| `provider_message_id` | string | External provider message identifier. |
-| `delivery_status` | single-select | Example: `sent`, `delivered`, `read`, `failed`. |
-| `read_at` | date-time | When the message was read. |
-| `media_type` | single-select | Example: `text`, `image`, `audio`, `video`, `document`. |
+## Verification boundary
 
-## Caraer Main relations
-
-When the records are known, link a WhatsApp record to the relevant Contact or
-Customer, Account, and Ticket. Ticket creation must use the provider-qualified
-`provider_message_id` as the deduplication key. Unknown or ambiguous sender
-matches remain fail-closed.
+The four new properties were reread through live Main MCP on 2026-11-03
+(23 total properties). Schema persistence alone does not verify a message
+writer, native hidden-field writes, provider receipts, or an end-to-end
+conversation. A labelled synthetic record (no transport or recipient), UUID
+`3038aec8-f6d1-4c1d-936e-071ae5d6d71a`, confirmed writes of `external_id`,
+`thread_id`, `conversation_id`, `direction`, `received_at`, and `body` through
+record.create. These native hidden fields are writable through MCP despite
+`editable=false` metadata. First transport test requires Jan Hein's explicit
+confirmation.

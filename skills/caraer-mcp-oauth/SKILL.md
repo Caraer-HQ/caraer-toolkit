@@ -13,12 +13,20 @@ description: "Guide reliable Caraer OAuth + PKCE customer MCP setup from app cre
 4. Read the target portal's `access.md`. If no customer workspace exists, ask for confirmation before creating one or follow the customer-onboarding workflow when applicable.
 5. Complete this phase only when the user-confirmed portal, connection name, endpoint, credential source, and authentication path are known.
 
+## Fast preflight
+
+1. Keep discovery target-specific. Read the confirmed portal's `access.md` and inspect only the named connection; do not list accounts, enumerate all MCP servers, or read an entire host configuration.
+2. For OpenClaw native runtime, inspect `mcp.servers.caraer-<portalname>` directly. Treat a legacy Codex connection name in local access notes as evidence only; do not reuse it for the OpenClaw connection.
+3. Fetch the authorization-server metadata once and report only whether it advertises authorization-code, refresh-token, `code`, and PKCE `S256`. Do not print the scopes catalog or unrelated metadata.
+4. For OpenClaw native runtime, probe the managed host browser first. If it is launchable, start it when needed and show the OpenClaw Browser panel; this establishes that consent can run on the Gateway host. If no host browser can be established, record the callback route as unverified and stop before opening consent.
+5. Consult the OpenClaw configuration schema only if a targeted configuration read or write fails validation. Complete preflight when the endpoint, transport, target-specific connection status, metadata capabilities, and browser-route status are known.
+
 ## Choose the connection path
 
 1. Identify the client or host currently in use before configuring or opening OAuth. The supported choices are OpenClaw, Hermes or a comparable agent host, Codex, Claude, Cursor, or another client explicitly confirmed by the operator. Use the selected client's native MCP connector, callback listener, credential store, and login action; do not substitute another client's CLI or callback flow.
 2. Configure Caraer MCP with the streamable HTTP transport in every client. Do not select SSE for `https://v2.api.caraer.com/api/v2/mcp`.
 3. When OpenClaw, Hermes, or a comparable agent host is in use, ask which runtime/client should perform the MCP connection—its native runtime, Codex, or another supported client—because these hosts can run more than one. Continue only after that preference is clear. Do not start a Codex CLI OAuth flow merely because the task is running inside an agent host.
-4. OpenClaw, Hermes, or comparable agent host: configure the confirmed remote MCP server in the selected host, scoped to the confirmed agent, with streamable HTTP, and use that host's own OAuth action when its native runtime is selected.
+4. OpenClaw, Hermes, or comparable agent host: configure the confirmed remote MCP server in the selected host, scoped to the confirmed agent, with streamable HTTP, and use that host's own OAuth action when its native runtime is selected. For OpenClaw, choose the identity path before writing configuration: `shared` supports an operator’s Settings/CLI OAuth login, while `per-requester` requires each sender’s MCP connect flow. Ask the operator when the intended ownership is unclear; do not default one mode to the other.
 5. Codex: configure the same remote endpoint with streamable HTTP for the server named `caraer-<portalname>` and start the configured OAuth flow when Codex is the selected runtime.
 6. Claude: add a custom remote MCP connector named `Caraer — <portalname>` (or the host client's equivalent) using `https://v2.api.caraer.com/api/v2/mcp` over streamable HTTP; start Connect and use the browser flow when Claude is the selected runtime.
 7. Cursor: configure the same remote endpoint in Cursor over streamable HTTP and start Cursor's native OAuth flow when Cursor is the selected runtime.
@@ -36,6 +44,7 @@ description: "Guide reliable Caraer OAuth + PKCE customer MCP setup from app cre
 
 1. Add a custom remote MCP connector named `Caraer — <portalname>` (or the host client's equivalent) with the MCP endpoint, then start its OAuth transaction so the **current client's** callback listener is running.
 2. Before opening or sending an authorization URL, check whether the browser completing OAuth runs on the same host as that listener. If it does not, establish a callback route first—for example, a user-managed SSH/Tailscale port forward from the browser's localhost port to the client's host localhost port—and verify the route reaches the listener. Do not open the authorization page or begin consent until this check passes.
+   - With OpenClaw shared OAuth, `mcp login` may print the generated URL instead of launching it. Keep that URL in the Gateway terminal and paste it unmodified into the verified Gateway-host browser; never copy it into chat, logs, screenshots, or a tracked file. Do not use this command for `per-requester` OAuth.
 3. Only after the callback listener and route are verified, prefer opening the authorization page in a user-accessible browser on the client host. Tell the user: “I’ve opened the OAuth page in the browser. You can complete the connection yourself with these steps.” Never enter credentials, MFA codes, authorization codes, or the final consent action for the user.
 4. The authorization URL may include the client's configured/default scopes. Do not add, infer, or alter scopes yourself. The user must still be able to review and change the selection in the Caraer consent flow, including choosing **Enable all scopes** or only specific scopes. Do not instruct the user to configure scopes manually in Settings or in the private-app configuration. Give this exact guidance:
    1. Log in via Google, Microsoft, or your email credentials.

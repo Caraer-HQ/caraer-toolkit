@@ -1,88 +1,67 @@
 # Activity Object Template
 
-Status: Draft.
-
-Source: ClickUp list `1.9.2. - Activities - Action`.
+Status: Draft base object.
 
 ## Purpose
 
-`activity` is the top-level object in the activity hierarchy. The object name defines the type, so Extended Objects inherit the base `activity` properties and only add their own fields.
+`activity` is the base object for operational records. An Extended Object such
+as `action`, `message`, `event`, or `task` is simultaneously an Activity and
+its specialised record type: it inherits the Activity properties and adds only
+its own properties and trait.
 
 ## Traits
 
 ### Enabled by default
 
-| Trait | Why it is enabled |
-| --- | --- |
-| **Table** | Provides the shared activity list with columns, sorting and filtering. |
+- **Table** — shared activity list, sorting, and filtering.
 
-### Optional by workspace configuration
+### Optional
 
-| Trait | When to enable it |
-| --- | --- |
-| **Analytics** | When reporting spans multiple activity types. |
+- **Analytics** — reporting across activity types.
 
-### Not enabled by default
+### Excluded
 
-Event, Task, Action and Message belong on their respective Extended Objects. Page,
-Flow and User are not general Activity capabilities.
+The Action, Message, Event, and Task traits belong on their respective
+Extended Objects, not on `activity`.
+
+## Shared references
+
+- System fields: [system-properties.md](../system-properties.md)
+- Native activity traits: [Action](../traits/action.md),
+  [Message](../traits/message.md), [Event](../traits/event.md), and
+  [Task](../traits/task.md)
+
+## Properties
+
+All Activity extensions inherit these properties. `Settings` lists active UI
+settings; `Required when` stores conditional logic. `-` means no setting or
+condition is configured.
+
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `activity_name` | Activiteitsnaam | Activity Name | string | single-line | Details | — | - | - | activity | Human-readable activity label. |
+| `description` | Beschrijving | Description | string | multi-line | Details | — | - | - | fileText | Summary and context. |
+| `start_date` | Startdatum | Start Date | date | date-time | Planning | — | - | - | calendar | Scheduled start. |
+| `due_date` | Vervaldatum | Due Date | date | date-time | Planning | — | - | - | calendarClock | Target completion. |
+| `end_date` | Einddatum | End Date | date | date-time | Planning | — | - | - | calendarCheck | Actual end timestamp. |
+| `duration` | Duur | Duration | number | duration | Planning | — | - | - | timer | Normalized duration. |
+| `outcome` | Resultaat | Outcome | string | multi-line | Details | — | - | - | circleCheck | Result or end state. |
+| `progress` | Voortgang | Progress | number | percent | Planning | — | - | - | chartNoAxesColumnIncreasing | Progress of the activity itself. |
+| `sort_order` | Sorteervolgorde | Sort Order | number | number | Planning | — | - | - | arrowDownUp | Manual UI ordering. |
+| `notes` | Notities | Notes | string | multi-line | Details | — | - | - | note | Internal working notes. |
 
 ## Hierarchy
 
-- `activity`
-  - `event`
-    - `meeting`
-  - `task`
-    - `subtask`
-  - `milestone`
-  - `action`
-    - `call`
-    - `comment`
-    - `formsubmission`
-    - `website-sessions`
-    - `email`
-    - `marketing-email`
-    - `call-to-action`
-    - `data-enrichment`
-    - `profile-completion`
-    - `user-creation`
-    - `first-login`
-    - `automation`
-  - `message`
-    - `email`
-    - `whatsapp`
-    - `linkedin`
-
-## Core Properties
-
-| Property | Type | Notes |
-| --- | --- | --- |
-| `activity_name` | string | Human-readable label for the activity. |
-| `description` | multi-line text | Short summary of the activity. |
-| `start_date` | date-time | When the activity starts or is scheduled to start. |
-| `due_date` | date-time | Planned or expected completion date. |
-| `end_date` | date-time | Optional completion timestamp. |
-| `duration` | duration/number | Normalized duration field. |
-| `outcome` | multi-line text | Result or end state of the activity. |
-| `progress` | number/percent | Progress of the activity itself. |
-| `sort_order` | number | Ordering for UI lists and timelines. |
-| `notes` | multi-line text | Internal notes. |
-
-## Inheritance
-
-All Extended Objects inherit these base properties from `activity`:
-
-- `activity_name`
-- `description`
-- `start_date`
-- `due_date`
-- `end_date`
-- `duration`
-- `outcome`
-- `progress`
-- `sort_order`
-- `notes`
-
-## Open Questions
-
-- Should `activity` be linked directly to `company`, or should that relation live on a separate shared base object?
+```text
+activity
+├── action
+├── event
+│   └── meeting
+├── message
+│   ├── email
+│   ├── whatsapp
+│   └── linkedin
+├── task
+│   └── subtask
+└── milestone
+```

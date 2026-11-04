@@ -62,8 +62,8 @@ Status: Central primary object.
 | `video_p75_watched_actions` | Video 75% bekeken acties | Video 75% watched actions | array<object> | `structure` / `structure` | Action type/value pairs. |
 | `video_p95_watched_actions` | Video 95% bekeken acties | Video 95% watched actions | array<object> | `structure` / `structure` | Action type/value pairs. |
 | `video_play_actions` | Video-afspeelacties | Video play actions | array<object> | `structure` / `structure` | Action type/value pairs. |
-| `date_start` | Startdatum | Start date | date | `date` / `date` | Reporting period start. | Required |
-| `date_stop` | Einddatum | End date | date | `date` / `date` | Reporting period end. | Required |
+| `date_start` | Startdatum | Start date | date | `date` / `date` | Reporting period start. | Optional |
+| `date_stop` | Einddatum | End date | date | `date` / `date` | Reporting period end. | Optional |
 | `insights_raw` | Ruwe inzichten | Raw insights | object | `structure` / `structure` | Complete provider response. |
 
 ## Direct Meta resource fields

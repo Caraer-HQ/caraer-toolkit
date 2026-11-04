@@ -1,56 +1,54 @@
 # Task Object Template
 
-Status: Draft schema.
+Status: Draft Activity extension.
 
-## Object
+## Purpose
 
-| Name | Label NL | Label EN | Description | Icon | Navigation | Suite |
-| --- | --- | --- | --- | --- | --- | --- |
-| `task` | Taak | Task | A discrete unit of work tracked to completion. | `listTodo` | Visible | Portal decision |
+`task` is an Extended Object of `activity` for work tracked to completion.
+Each Task record inherits the Activity properties and native Task behaviour.
 
 ## Traits
 
-| Name | Enabled | Purpose | Settings |
-| --- | --- | --- | --- |
-| Table | Yes | List, sort, filter, and manage task records. | Default view is a portal decision. |
-| Task | Yes | Native task behaviour. | Adds the Activity group; no editable fields or relations are provisioned on its own. |
-| Flow | No | Workflow beyond standard task status. | Enable only if required. |
-| Analytics | No | Throughput, ageing, and completion reporting. | Enable only if required. |
+### Enabled by default
+
+- **Table** — task list, sorting, and filtering.
+- **Task** — native task behaviour; see [traits/task.md](../traits/task.md).
+
+### Optional
+
+- **Flow** — only when native task status is insufficient.
+- **Analytics** — throughput, ageing, and completion reporting.
+
+### Excluded
+
+Event, Action, Message, Page, and User are not general Task capabilities.
+
+## Shared references
+
+- Activity base properties: [activities.md](activities.md)
+- System fields: [system-properties.md](../system-properties.md)
+- Native Task behaviour: [traits/task.md](../traits/task.md)
 
 ## Properties
 
-| Name | Label NL | Label EN | Description | Icon | Type | Format | Group | Required | Default | Rules | Options | Settings | Provisioned by trait | Source | Status |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `title` | Titel | Title | Canonical short task name. | `idCard` | string | single-line | Details | Yes | — | — | — | — | Task | Task schema | Agreed |
-| `description` | Beschrijving | Description | Task summary and context. | — | string | multi-line | Details | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `start_date` | Startdatum | Start Date | Planned start date and time. | — | date | date-time | Planning | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `due_date` | Vervaldatum | Due Date | Target completion date and time. | — | date | date-time | Planning | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `end_date` | Einddatum | End Date | Actual completion date and time. | — | date | date-time | Planning | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `duration` | Duur | Duration | Normalized task duration. | — | number | duration | Planning | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `outcome` | Resultaat | Outcome | Result or final outcome. | — | string | multi-line | Details | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `progress` | Voortgang | Progress | Completion percentage. | — | number | percent | Planning | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `sort_order` | Sorteervolgorde | Sort Order | Manual order for lists and timelines. | — | number | number | Planning | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `notes` | Notities | Notes | Internal working notes. | — | string | multi-line | Details | No | — | — | — | — | Task | Activity/work-item schema | Proposed |
-| `assignees` | Toegewezen aan | Assignees | People responsible for the task. | — | relation | people | Planning | No | — | — | Employee / user targets | — | Task | Task schema | Proposed |
-| `task_status` | Taakstatus | Task Status | Task lifecycle state. | — | single-select | single-select | Planning | Yes | To do | — | To do; In progress; Waiting; In review; Done; Blocked; Cancelled | — | Task | Task schema | Proposed |
-| `priority` | Prioriteit | Priority | Relative urgency. | — | single-select | single-select | Planning | No | Normal | — | To be agreed | — | Task | Task schema | Proposed |
-| `task_reference` | Taakreferentie | Task Reference | External or internal reference. | — | string | single-line | Details | No | — | unique if used as external ID | — | — | Task | Task schema | Proposed |
-| `checklist_count` | Aantal checklistitems | Checklist Count | Cached number of checklist items. | — | number | number | Planning | No | 0 | read-only if derived | — | — | Task | Task schema | Proposed |
-| `dependency_count` | Aantal afhankelijkheden | Dependency Count | Cached number of task dependencies. | — | number | number | Planning | No | 0 | read-only if derived | — | — | Task | Task schema | Proposed |
+These properties belong specifically to `task`; do not repeat inherited
+Activity properties here.
 
-System-managed object fields are documented centrally and are not repeated in
-this task-specific template.
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `assignees` | Toegewezen aan | Assignees | relation | relation | Planning | Employee or User target | - | - | users | People responsible for the task. |
+| `task_status` | Taakstatus | Task Status | single-select | single-select | Planning | `to_do`, `in_progress`, `waiting`, `in_review`, `done`, `blocked`, `cancelled` | Required | - | circleDot | Native task lifecycle state. |
+| `priority` | Prioriteit | Priority | single-select | single-select | Planning | Workspace-defined | - | - | flag | Relative urgency. |
+| `task_reference` | Taakreferentie | Task Reference | string | single-line | Details | — | - | - | fingerprint | Internal/external identifier; enable Unique only when used as a stable ID. |
+| `checklist_count` | Aantal checklistitems | Checklist Count | number | number | Planning | — | Hidden | - | listChecks | Derived/cache field if required by the implementation. |
+| `dependency_count` | Aantal afhankelijkheden | Dependency Count | number | number | Planning | — | Hidden | - | gitBranch | Derived/cache field if required by the implementation. |
 
 ## Relations
 
-| Name | Label NL | Label EN | Target object | Cardinality | Description | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| — | — | — | — | — | No Task relations agreed yet. | Deferred |
+Relations for projects, accountable owner, parent task, and subtasks remain
+workspace decisions. Use Relations for independently identifiable records;
+do not model extension ownership as a Relation.
 
-## Deferred Decisions
+## Known extension
 
-| Area | Decision needed |
-| --- | --- |
-| Properties | Approve, reject, or refine the proposed rows and their options/settings. |
-| Relations | Project, assignee/owner, parent task, and subtasks. |
-| Traits | Flow and Analytics. |
+`subtask`.

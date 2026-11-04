@@ -67,8 +67,8 @@ insights for a reporting period.
 | `post_reaction` | Postreacties | Post reactions | integer | `number` / `number` | Count. |
 | `objective` | Doelstelling | Objective | enum | `single-select` | See [Meta Campaign objective options](meta-campaign.md#objective-options). |
 | `buying_type` | Inkooptype | Buying type | enum | `single-select` | See [Meta Campaign buying-type options](meta-campaign.md#buying-type-options). |
-| `date_start` | Startdatum | Start date | date | `date` / `date` | Reporting period start. | Required |
-| `date_stop` | Einddatum | End date | date | `date` / `date` | Reporting period end. | Required |
+| `date_start` | Startdatum | Start date | date | `date` / `date` | Reporting period start. | Optional |
+| `date_stop` | Einddatum | End date | date | `date` / `date` | Reporting period end. | Optional |
 | `insights_raw` | Ruwe inzichten | Raw insights | object | `structure` / `structure` | Complete provider response. |
 
 ## Direct Meta resource fields

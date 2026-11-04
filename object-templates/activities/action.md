@@ -1,90 +1,53 @@
 # Action Object Template
 
-Status: Draft.
-
-Source: ClickUp list `1.9.2. - Activities - Action`.
+Status: Draft Activity extension.
 
 ## Purpose
 
-`action` is the activity object for operational actions.
+`action` is an Extended Object of `activity` for operational actions. Each
+Action record inherits the Activity properties and native Action behaviour.
 
 ## Traits
 
 ### Enabled by default
 
-| Trait | Why it is enabled |
-| --- | --- |
-| **Table** | Provides an operational action list with columns, sorting and filtering. |
-| **Action** | Represents an interaction or operation with an actor, target or result. |
+- **Table** — operational action list.
+- **Action** — native operational-action behaviour; see
+  [traits/action.md](../traits/action.md).
 
-### Optional by workspace configuration
+### Optional
 
-| Trait | When to enable it |
-| --- | --- |
-| **Analytics** | When action volume, outcomes or conversion needs reporting. |
+- **Analytics** — action-volume, outcome, or conversion reporting.
 
-### Not enabled by default
+### Excluded
 
-Event, Message, Task, Page, Flow and User are not general Action capabilities.
+Event, Message, Task, Page, Flow, and User are not general Action
+capabilities.
 
-## Hierarchy
+## Shared references
 
-- `activity`
-  - `action`
-    - `call`
-    - `comment`
-    - `formsubmission`
-    - `website-sessions`
-    - `email`
-    - `marketing-email`
-    - `call-to-action`
-    - `data-enrichment`
-    - `profile-completion`
-    - `user-creation`
-    - `first-login`
-    - `automation`
+- Activity base properties: [activities.md](activities.md)
+- System fields: [system-properties.md](../system-properties.md)
+- Native Action behaviour: [traits/action.md](../traits/action.md)
 
-## Inherited From `activity`
+## Properties
 
-- `activity_name`
-- `description`
-- `start_date`
-- `due_date`
-- `end_date`
-- `duration`
-- `outcome`
-- `progress`
-- `sort_order`
-- `notes`
+These properties belong specifically to `action`; do not repeat inherited
+Activity properties here.
 
-## Core Properties
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `action_name` | Actienaam | Action Name | string | single-line | Details | — | - | - | activity | Human-readable action label. |
+| `action_state` | Actiestatus | Action State | single-select | single-select | Details | Workspace-defined | - | - | circleDot | Operational action state. |
+| `actor` | Uitgevoerd door | Actor | relation | relation | Details | Person, Employee, User, or system target | - | - | user | Record or system that performed the action. |
+| `target` | Doel | Target | relation | relation | Details | Workspace-defined record target | - | - | crosshair | Record or entity acted on. |
+| `payload` | Actiegegevens | Action Payload | string | multi-line | Details | — | - | - | braces | Structured or free-form action payload. |
+| `reference_url` | Referentie-URL | Reference URL | string | url | Details | — | - | - | link | Optional source URL. |
+| `external_id` | Externe ID | External ID | string | single-line | Details | — | - | - | fingerprint | Provider identifier; enable Unique only when the provider ID is globally unique. |
+| `pin_activity` | Activiteit vastzetten | Pin Activity | checkbox | single-checkbox | Details | — | - | - | pin | Marks the action as pinned in UI. |
 
-| Property | Type | Notes |
-| --- | --- | --- |
-| `action_name` | string | Human-readable label for the action. |
-| `action_state` | single-select | Operational state of the action. |
-| `actor` | relation/string | Person or system that performed the action. |
-| `target` | relation/string | Record, person, or object acted on. |
-| `payload` | multi-line text | Structured or free-form action payload. |
-| `reference_url` | url | Optional source URL for the action. |
-| `external_id` | string | External system identifier. |
-| `pin_activity` | boolean | Marks the action as pinned in the UI. |
+## Known extensions
 
-## Known Extended Objects
-
-- `call`
-- `comment`
-- `formsubmission`
-- `website-sessions`
-- `email`
-- `marketing-email`
-- `call-to-action`
-- `data-enrichment`
-- `profile-completion`
-- `user-creation`
-- `first-login`
-- `automation`
-
-## Open Questions
-
-- Should `action` be the home for all non-communication workflow events, or should some of these children move under `activity` directly?
+`call`, `comment`, `formsubmission`, `website-sessions`, `email`,
+`marketing-email`, `call-to-action`, `data-enrichment`, `profile-completion`,
+`user-creation`, `first-login`, and `automation`.

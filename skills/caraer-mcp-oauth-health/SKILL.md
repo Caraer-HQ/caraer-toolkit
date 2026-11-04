@@ -1,12 +1,12 @@
 ---
-name: "caraer-mcp-health"
+name: "caraer-mcp-oauth-health"
 description: "Check Caraer MCP health and guide gradual API-key-to-OAuth migration."
 user-invocable: true
 ---
 
-# Caraer MCP health
+# Caraer MCP OAuth health
 
-Use for `/caraer-mcp-health [customer]` or `/caraer_mcp_health [customer]`.
+Use for `/caraer-mcp-oauth-health [customer]` or `/caraer_mcp_oauth_health [customer]`.
 
 ## Default behavior: lightweight check
 
@@ -16,12 +16,18 @@ Use for `/caraer-mcp-health [customer]` or `/caraer_mcp_health [customer]`.
    - If the label identifies a customer, ask the operator for approval to navigate to `/customer/[client]`. Only after approval, navigate there; do not inspect MCP configuration or make an MCP request before navigation.
    - If approval is not granted, stop. If the label does not identify a customer, ask for the customer name.
 2. Select the exact customer portal and read its `access.md`. Never guess between Caraer, Waddenvacatures, or another portal.
-3. Inspect the customer MCP configuration and credential source locally without printing tokens, headers, secrets, or full credential paths.
-4. Determine the authentication mode:
+3. Resolve the **exact runtime connection** before inspecting credentials or calling the portal. The server name in the customer's `access.md` is authoritative (for example, `caraer_van_doorn`). Do not assume that Codex CLI, local environment variables, or OpenClaw is the active transport.
+   - Inspect only non-secret connection metadata available in the current runtime.
+   - In Codex, look for the exact server name in the Codex MCP registry/CLI configuration.
+   - In OpenClaw, look for the exact MCP namespace exposed to the session (for example, `mcp__caraer_van_doorn__*`). OpenClaw-managed connections may be available even when the local Codex CLI and shell environment do not list that server.
+   - A connection whose server name differs from the customer server name is not a fallback candidate. Never use a similarly named, shared, or another-customer connection merely because it is available.
+   - If the exact connection is absent in the current runtime, report which runtime was inspected and stop with the smallest setup action. Do not switch platforms automatically or retry against another portal.
+4. Determine the authentication mode for the resolved connection:
    - OAuth: an OAuth client ID/access-token/refresh-token setup is configured.
    - Legacy API key: the MCP uses an API-key/bearer token environment variable or secure legacy credential.
    - Missing/unknown: no usable credential configuration is available.
-5. If either OAuth or a legacy API key is configured, perform the technical light check below.
+   - For an OpenClaw-managed MCP connection, treat the connection metadata and the customer's `access.md` as the configuration source; do not require duplicate shell variables or a local Codex CLI entry.
+5. If either OAuth or a legacy API key is configured, perform the technical light check using that same resolved connection.
 6. Report the actual light-check response concisely. Do not infer business-data access, scopes, plan access, task access, or meter access from a successful `tools/list`.
 7. If a legacy API-key setup is active, add a WARN after the light-check result and ask:
    **"A legacy API-key setup is still active. Do you want me to start the OAuth migration with `/skill caraer-mcp-oauth [customer]`?"**
@@ -33,7 +39,7 @@ Use for `/caraer-mcp-health [customer]` or `/caraer_mcp_health [customer]`.
 
 ## Technical light-check runbook
 
-Use the configured MCP client/server when directly available. Otherwise call the Caraer MCP endpoint with a browser-like HTTP client. The default endpoint is:
+Use the resolved MCP client/server when directly available. Otherwise call the Caraer MCP endpoint with a browser-like HTTP client. The default endpoint is:
 
 `https://v2.api.caraer.com/api/v2/mcp`
 
@@ -42,14 +48,24 @@ Use the customer-specific credential selected in step 4:
 - Legacy API key: `Authorization: Bearer ${<customer token env var>}`
 - OAuth: `Authorization: Bearer ${<customer OAuth access-token env var>}`
 
-Never substitute the shared Caraer token or another customer’s credential.
+Never substitute the shared Caraer token or another customer’s credential. Never change transport mid-check: a failed exact OpenClaw connection does not authorize a Codex/local fallback, and vice versa.
+
+### Direct runtime MCP check
+
+When the exact customer connection is exposed directly by the current runtime, use it instead of reconstructing HTTP authentication.
+
+- Use the runtime's already-loaded tool catalog as the `tools/list` equivalent; count only tools in the exact customer namespace and list up to 8 non-sensitive names.
+- If the connection provides a read-only identity/access endpoint such as `access_scopes_get`, call it once to verify that the authenticated company name matches the intended customer. Do not print scopes; report only the non-sensitive identity result and, if useful, a scope count.
+- If the authenticated company does not match, report **FAIL** and stop. Do not query records and do not try another connection.
+- If no identity endpoint is exposed, report that identity could not be verified separately; do not infer it from a tool name alone.
+- Treat a successful direct tool call plus a non-empty exact tool catalog as a successful light connectivity check. Do not infer business-data access from it.
 
 ### Request sequence
 
 1. Send one JSON-RPC `initialize` request with a 20–30 second timeout:
 
 ```json
-{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"caraer-mcp-health-check","version":"1.0"}}}
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"caraer-mcp-oauth-health-check","version":"1.0"}}}
 ```
 
 2. If initialize returns HTTP 200 and a JSON-RPC result, send one `tools/list` request with the same timeout:

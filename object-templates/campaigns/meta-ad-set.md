@@ -64,8 +64,8 @@ Status: Central primary object.
 | `video_play_actions` | Video-afspeelacties | Video play actions | array<object> | `structure` / `structure` | Action type/value pairs. |
 | `post_engagement` | Postbetrokkenheid | Post engagement | integer | `number` / `number` | Count. |
 | `post_reaction` | Postreacties | Post reactions | integer | `number` / `number` | Count. |
-| `date_start` | Startdatum | Start date | date | `date` / `date` | Reporting period start. | Required |
-| `date_stop` | Einddatum | End date | date | `date` / `date` | Reporting period end. | Required |
+| `date_start` | Startdatum | Start date | date | `date` / `date` | Reporting period start. | Optional |
+| `date_stop` | Einddatum | End date | date | `date` / `date` | Reporting period end. | Optional |
 | `insights_raw` | Ruwe inzichten | Raw insights | object | `structure` / `structure` | Complete provider response. |
 
 ## Direct Meta resource fields

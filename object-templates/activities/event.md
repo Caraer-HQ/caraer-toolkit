@@ -1,114 +1,85 @@
 # Event Object Template
 
-Status: Draft.
-
-Source: ClickUp list `1.9.2. - Activities - Action`.
+Status: Draft Activity extension.
 
 ## Purpose
 
-`event` is the schedulable Extended Object of `activity`. It holds the fields that apply to all calendar-like items.
+`event` is an Extended Object of `activity` for calendar-like, schedulable
+records. Each Event record inherits the Activity properties and native Event
+behaviour.
 
 ## Traits
 
 ### Enabled by default
 
-| Trait | Why it is enabled |
-| --- | --- |
-| **Table** | Provides the standard event-record list with columns, sorting and filtering. |
-| **Event** | Provides calendar behaviour, date/time handling, calendar views, recurrence and event interactions. |
+- **Table** — event list, sorting, and filtering.
+- **Event** — native calendar, scheduling, recurrence, and event interaction
+  behaviour; see [traits/event.md](../traits/event.md).
 
-### Optional by workspace configuration
+### Optional
 
-| Trait | When to enable it |
-| --- | --- |
-| **Analytics** | When the workspace needs reporting on event volume, attendance, registration or completion. |
-| **Page** | When each event should also have a public-facing detail page. |
-| **Flow** | When events move through a workflow such as draft, review, published and archived. Use this only if `event_status` alone is insufficient. |
+- **Analytics** — event volume, attendance, registration, or completion
+  reporting.
+- **Page** — public event detail pages; see [traits/page.md](../traits/page.md).
+- **Flow** — only when `event_status` is insufficient for the workflow.
 
-### Not enabled by default
+### Excluded
 
-- **Task** — an event is scheduled activity, not work that must be completed.
-- **Action** — an event should not automatically be treated as an interaction or logged action.
-- **Message** — communication around an event belongs in related Message records.
-- **User** — an event does not represent a person who can sign in.
+Task, Action, Message, and User are not general Event capabilities. Store
+event communication in related Message records.
 
-The recommended initial configuration is therefore **Table + Event**, with
-Analytics enabled only when reporting requirements are known.
+## Shared references
 
-## Hierarchy
+- Activity base properties: [activities.md](activities.md)
+- System fields: [system-properties.md](../system-properties.md)
+- Native Event behaviour: [traits/event.md](../traits/event.md)
 
-- `activity`
-  - `event`
-    - `meeting`
+## Properties
 
-## Inherited From `activity`
+These properties belong specifically to `event`; do not repeat inherited
+Activity or optional Page properties here.
 
-- `activity_name`
-- `description`
-- `start_date`
-- `due_date`
-- `end_date`
-- `duration`
-- `outcome`
-- `progress`
-- `sort_order`
-- `notes`
-
-## Core Properties
-
-| Property | Type | Notes |
-| --- | --- | --- |
-| `location` | Text | Physical or virtual location for the event. |
-| `timezone` | Text | Timezone used for the schedule. |
-| `all_day` | Checkbox | Whether the event spans the whole day. |
-| `calendar_event_id` | Text | External calendar identifier. |
-| `calendar_url` | Website | Link to the calendar item. |
-| `event_type` | Single choice | Workspace-defined category, such as meeting, appointment, service, class, webinar or social event. |
-| `event_status` | Single choice | `draft`, `scheduled`, `cancelled`, `completed`. |
-| `audience` | Multiple choice | Intended audience; values are workspace-defined. |
-| `registration_required` | Checkbox | Whether participants need to register. |
-| `registration_deadline` | Date | Optional deadline for registration. |
-| `capacity` | Number | Optional maximum number of participants. |
-| `cost` | Currency | Optional participation fee. |
-| `recurrence_rule` | Text | Recurrence definition, if recurring events are supported. |
-| `publicly_visible` | Checkbox | Whether the event may appear in a public calendar. |
-| `featured` | Checkbox | Whether the event should be highlighted in a calendar or listing. |
-| `cover_image` | File | Optional event image or poster. |
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `location` | Locatie | Location | string | single-line | Details | — | - | - | mapPin | Physical or virtual event location. |
+| `timezone` | Tijdzone | Timezone | string | single-line | Planning | IANA timezone | - | - | globe | Timezone used for the schedule. |
+| `all_day` | Hele dag | All Day | checkbox | single-checkbox | Planning | — | - | - | calendarDays | Whether the event spans the whole day. |
+| `calendar_event_id` | Agenda-event-ID | Calendar Event ID | string | single-line | Integrations | — | - | - | calendar | External calendar identifier; enable Unique only when the provider ID is globally unique. |
+| `calendar_url` | Agenda-URL | Calendar URL | string | url | Integrations | — | - | - | link | Link to the external calendar item. |
+| `event_type` | Eventtype | Event Type | single-select | single-select | Details | Workspace-defined | - | - | tags | Event category. |
+| `event_status` | Eventstatus | Event Status | single-select | single-select | Planning | `draft`, `scheduled`, `cancelled`, `completed` | - | - | circleDot | Event lifecycle state. |
+| `audience` | Doelgroep | Audience | multi-select | multi-select | Details | Workspace-defined | - | - | users | Intended audience. |
+| `registration_required` | Aanmelding vereist | Registration Required | checkbox | single-checkbox | Registration | — | - | - | clipboardCheck | Whether people need to register. |
+| `registration_deadline` | Aanmelddeadline | Registration Deadline | date | date-time | Registration | — | - | `registration_required = true` | calendarClock | Optional registration deadline. |
+| `capacity` | Capaciteit | Capacity | number | number | Registration | — | - | - | usersRound | Optional maximum participants. |
+| `cost` | Kosten | Cost | number | currency | Registration | Workspace currency | - | - | banknote | Optional participation fee. |
+| `recurrence_rule` | Herhalingsregel | Recurrence Rule | string | single-line | Planning | iCalendar RRULE | - | - | repeat | Recurrence definition. |
+| `publicly_visible` | Publiek zichtbaar | Publicly Visible | checkbox | single-checkbox | Publication | — | - | - | eye | Whether the event may be listed publicly. |
+| `featured` | Uitgelicht | Featured | checkbox | single-checkbox | Publication | — | - | - | star | Whether the event is highlighted. |
+| `cover_image` | Omslagafbeelding | Cover Image | file | file | Publication | — | - | - | image | Optional event image or poster. |
 
 ## Relations
 
-| Relation | Target object | Cardinality | Label from event | Label from target |
-| --- | --- | --- | --- | --- |
-| `event_owner` | Person / Employee / User | One required | owned by | owns event |
-| `event_organizer` | Person / Team / Company | Zero or one | organised by | organises event |
-| `event_location` | Location | Zero or one | held at | hosts event |
-| `event_speaker` | Person | Zero or many | presented by | speaks at event |
+| Name | Target object | Cardinality | Notes |
+| --- | --- | --- | --- |
+| `event_owner` | Person, Employee, or User | One required | Accountable owner; Relation, not text. |
+| `event_organizer` | Person, Team, or Company | Zero or one | Organisation or person arranging the event. |
+| `event_location` | Location | Zero or one | Use when Location is an independent record. |
+| `event_speaker` | Person | Zero or many | Use for speakers or presenters. |
 
-`event_owner` is a Relation, not a text property. The owner is an independently
-existing Record responsible for the event. The owner may be different from the
-organizer, speaker, invitee or participant.
+## Participation
 
-## Invitations and participation
+Where invitation, registration, or RSVP history is needed, model it as an
+`event_participation` join object rather than a multi-select Event property.
 
-If an event needs invitations, registration or RSVP tracking, model each person’s
-participation as a separate `event_participation` join object rather than as a
-multiple-choice property on the Event.
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `participation_status` | Deelname-status | Participation Status | single-select | single-select | Details | `invited`, `registered`, `accepted`, `declined`, `tentative`, `attended`, `no_show`, `cancelled` | - | - | circleDot | RSVP or attendance state. |
+| `participation_role` | Deelnamerol | Participation Role | single-select | single-select | Details | `participant`, `volunteer`, `speaker`, `leader`, `organizer` | - | - | badge | Role in the event. |
+| `invited_at` | Uitgenodigd op | Invited At | date | date-time | Planning | — | - | - | mailPlus | Invitation timestamp. |
+| `responded_at` | Gereageerd op | Responded At | date | date-time | Planning | — | - | - | reply | Response timestamp. |
+| `response_note` | Reactienotitie | Response Note | string | multi-line | Details | — | - | - | note | Optional response or registration note. |
 
-| Property / relation | Type | Notes |
-| --- | --- | --- |
-| `event` | Relation | Required relation to `event`. |
-| `person` | Relation | Required relation to the invited or registered person. |
-| `participation_status` | Single choice | `invited`, `registered`, `accepted`, `declined`, `tentative`, `attended`, `no_show`, `cancelled`. |
-| `participation_role` | Single choice | `participant`, `volunteer`, `speaker`, `leader`, `organizer`. |
-| `invited_at` | Date | When the invitation was sent. |
-| `responded_at` | Date | When the person responded. |
-| `response_note` | Long text | Optional response or registration note. |
+## Known extension
 
-## Known Extended Objects
-
-- `meeting`
-
-## Open Questions
-
-- Should recurring events be a separate Extended Object, or a property on `event`?
-- Should `event_participation` be a formal shared object or configured only in workspaces that need RSVP tracking?
+`meeting`.

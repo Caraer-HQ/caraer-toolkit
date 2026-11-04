@@ -1,69 +1,53 @@
 # Message Object Template
 
-Status: Draft.
-
-Source: ClickUp list `1.9.2. - Activities - Action`.
+Status: Draft Activity extension.
 
 ## Purpose
 
-`message` is the activity object for communication records.
+`message` is an Extended Object of `activity` for inbound and outbound
+communication. Each Message record inherits the Activity properties and native
+Message behaviour.
 
 ## Traits
 
 ### Enabled by default
 
-| Trait | Why it is enabled |
-| --- | --- |
-| **Table** | Provides a searchable message list with columns and filters. |
-| **Message** | Provides sender, recipient, channel, content and delivery behaviour. |
+- **Table** — searchable message list.
+- **Message** — native communication behaviour; see
+  [traits/message.md](../traits/message.md).
 
-### Optional by workspace configuration
+### Optional
 
-| Trait | When to enable it |
-| --- | --- |
-| **Analytics** | When delivery, response or channel performance needs reporting. |
+- **Analytics** — delivery, response, and channel reporting.
 
-### Not enabled by default
+### Excluded
 
-Event, Action, Task, Page, Flow and User are not general Message capabilities.
+Event, Action, Task, Page, Flow, and User are not general Message
+capabilities.
 
-## Hierarchy
+## Shared references
 
-- `activity`
-  - `message`
-    - `email`
-    - `whatsapp`
-    - `linkedin`
+- Activity base properties: [activities.md](activities.md)
+- System fields: [system-properties.md](../system-properties.md)
+- Native Message behaviour: [traits/message.md](../traits/message.md)
 
-## Inherited From `activity`
+## Properties
 
-- `activity_name`
-- `description`
-- `start_date`
-- `due_date`
-- `end_date`
-- `duration`
-- `outcome`
-- `progress`
-- `sort_order`
-- `notes`
+These properties belong specifically to `message`; do not repeat inherited
+Activity properties here.
 
-## Core Properties
+| Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `message_name` | Berichtnaam | Message Name | string | single-line | Details | — | - | - | messageCircle | Human-readable message label. |
+| `channel` | Kanaal | Channel | single-select | single-select | Delivery | Workspace-defined | - | - | radio | Communication channel. |
+| `direction` | Richting | Direction | single-select | single-select | Delivery | `inbound`, `outbound` | - | - | arrowLeftRight | Direction of communication. |
+| `body` | Berichtinhoud | Message Body | string | multi-line | Content | — | - | - | fileText | Message content. |
+| `sender` | Afzender | Sender | relation | relation | Delivery | Person or organisation target | - | - | send | Sender identity. |
+| `recipient` | Ontvanger | Recipient | relation | relation | Delivery | Person or organisation target | - | - | inbox | Primary recipient. |
+| `thread_id` | Thread-ID | Thread ID | string | single-line | Delivery | — | Indexed | - | messagesSquare | Conversation grouping key. |
+| `timestamp` | Tijdstip | Timestamp | date | date-time | Delivery | — | - | - | clock | Sent or received timestamp. |
+| `external_id` | Externe ID | External ID | string | single-line | Delivery | — | - | fingerprint | Provider identifier; enable Unique only when the provider ID is globally unique. |
 
-| Property | Type | Notes |
-| --- | --- | --- |
-| `message_name` | string | Human-readable label for the message. |
-| `channel` | single-select | Communication channel name. |
-| `direction` | single-select | Example: `inbound` or `outbound`. |
-| `body` | multi-line text | Message content. |
-| `sender` | relation/string | Sender identity. |
-| `recipient` | relation/string | Primary recipient identity. |
-| `thread_id` | string | Conversation grouping. |
-| `timestamp` | date-time | When the message was sent or received. |
-| `external_id` | string | External provider identifier. |
+## Known extensions
 
-## Known Extended Objects
-
-- `email`
-- `whatsapp`
-- `linkedin`
+`email`, `whatsapp`, and `linkedin`.
