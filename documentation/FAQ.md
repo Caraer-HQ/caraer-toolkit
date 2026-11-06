@@ -22,6 +22,18 @@ Caraer can be configured for corporate recruitment teams, recruitment agencies, 
 
 See [Who Caraer Is For](About%20Caraer/target_audience.md).
 
+## Recruitment planning
+
+### I need a planning solution. Where should I start?
+
+First clarify what needs to be planned: vacancies and recruitment campaigns, interviews and appointments, or tasks and candidate follow-up. These are different requirements; a request for “planning” alone does not establish which one is needed.
+
+Caraer documents Event behaviour for scheduled appointments, including start and end times, and Task behaviour for work with a start date and due date. The available fields, Activity types, and calendar connections depend on workspace configuration. These building blocks do not by themselves establish a ready-made recruitment planning board, automatic interview scheduling, resource or shift planning, or a connected external calendar.
+
+Describe what you want to plan before selecting a solution. The relevant configuration and any required integrations must then be checked for that use case. Vacancies and campaigns are possible subjects of the request, not a promise that every campaign scheduling feature is available.
+
+See [Activities](Data/Activities.md) for Event and Task behaviour and [Core Capabilities](About%20Caraer/core_capabilities.md) for the recruitment workflow context.
+
 ## Data and records
 
 ### What is the difference between an Object, a Record, and a Property?
