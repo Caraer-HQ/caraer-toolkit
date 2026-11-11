@@ -91,6 +91,13 @@ this file whenever a template or shared trait/system reference changes.
 | [Meta Ad Set](campaigns/meta-ad-set.md) | Central primary object | Legacy | Normalise table; preserve provider field mappings. |
 | [Meta Ad](campaigns/meta-ad.md) | Central primary object | Legacy | Normalise table; preserve provider field mappings. |
 
+## Integrations
+
+| Template | Formal status | Structure | Next action |
+| --- | --- | --- | --- |
+| [Order](integrations/tickettailor/order.md) | Draft Action extension; internal name `purchase_order` | Normalised | Validate optional/null field shapes and provider money units before live adoption. |
+| [Ticket](integrations/tickettailor/ticket.md) | Draft Action extension; internal name `event_ticket` | Normalised | Validate cancellation source, additional webhook examples, optional field shapes, and fulfilment cardinality before live adoption. |
+
 ## Support and onboarding
 
 | Template | Formal status | Structure | Next action |

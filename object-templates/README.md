@@ -35,6 +35,11 @@ Independent operational objects
 └── Match (draft)
 ```
 
+TicketTailor Order (`purchase_order`) and Ticket (`event_ticket`) are reusable
+provider mappings documented in
+[`integrations/tickettailor/order.md`](integrations/tickettailor/order.md) and
+[`integrations/tickettailor/ticket.md`](integrations/tickettailor/ticket.md).
+
 `Lead`, `Qualified Lead`, and `Customer` are Contact extensions. `Target` and
 `Account` are Company extensions. `Candidate` is an independent primary
 object; `New Candidate`, `Qualified Candidate`, `Employee`, and `Alumni` are
@@ -185,6 +190,10 @@ Shared references:
   - `meta-campaign.md`
   - `meta-ad-set.md`
   - `meta-ad.md`
+- `integrations` — provider-specific source mappings and reusable integration
+  object templates
+  - `tickettailor/order.md`
+  - `tickettailor/ticket.md`
 
 ## Notes
 
