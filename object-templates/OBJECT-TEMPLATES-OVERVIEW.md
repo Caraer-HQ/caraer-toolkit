@@ -103,7 +103,7 @@ this file whenever a template or shared trait/system reference changes.
 
 | Template | Formal status | Structure | Next action |
 | --- | --- | --- | --- |
-| [Ticket](support/ticket.md) | Live Caraer Main schema reference, updated 2026-08-13 | Legacy | Preserve live evidence while mapping to the shared table structure. |
+| [Support Ticket](support/support_ticket.md) | Toolkit template; naming `support_ticket` / Support Ticket / Support Tickets updated 2026-11-12 | Normalised | Create in live Caraer Main under authorization, then sync UUID and trait state back here. |
 | [Onboarding](onboarding/onboarding.md) | Central draft; independent operational record | Legacy | Confirm the live model before normalising. |
 
 ## Update rules
