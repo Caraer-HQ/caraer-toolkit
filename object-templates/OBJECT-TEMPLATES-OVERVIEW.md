@@ -37,7 +37,8 @@ this file whenever a template or shared trait/system reference changes.
 | [Action — Automation](activities/action/automation.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |
 | [Action — Call to action](activities/action/call-to-action.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |
 | [Action — Call](activities/action/call.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |
-| [Action — Comment](activities/action/comment.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |
+| [Action — Note](activities/action/note.md) | Toolkit template | Normalised | Complete setup Q&A; confirm General (`note_about`) relation targets, selected organisation approach, and native fields before adoption. |
+| [Note — Candidate Review](activities/action/candidate-review.md) | Toolkit template; optional Note Extended Object | Normalised | Confirm Note inheritance and Candidate, Vacancy, and Match relation identifiers before adoption. |
 | [Action — Data enrichment](activities/action/data-enrichment.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |
 | [Action — First login](activities/action/first-login.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |
 | [Action — Form submission](activities/action/formsubmission.md) | Draft | Legacy | Reference Activity/Action and retain only child-specific properties. |

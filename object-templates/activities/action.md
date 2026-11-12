@@ -48,6 +48,9 @@ Activity properties here.
 
 ## Known extensions
 
-`call`, `comment`, `formsubmission`, `website-sessions`, `email`,
+`call`, `note`, `formsubmission`, `website-sessions`, `email`,
 `marketing-email`, `call-to-action`, `data-enrichment`, `profile-completion`,
 `user-creation`, `first-login`, and `automation`.
+
+`candidate-review` is an optional Extended Object of `note`, not a direct
+Action extension; see [Note](action/note.md).

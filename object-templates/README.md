@@ -125,7 +125,8 @@ Shared references:
   - `milestone.md`
   - `action/`
     - `call.md`
-    - `comment.md`
+    - `note.md`
+    - `candidate-review.md`
     - `formsubmission.md`
     - `website-sessions.md`
     - `marketing-email.md`
