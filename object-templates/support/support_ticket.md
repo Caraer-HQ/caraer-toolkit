@@ -1,11 +1,28 @@
 # Support Ticket Object Template
 
 Status: Toolkit template; naming updated 2026-11-12 for live adoption in Caraer
-Main.
+Main. Relation design updated 2026-11-12; live adoption partially completed.
 
 - Internal name: `support_ticket`
 - Label: Support Ticket
 - Plural: Support Tickets
+
+## Caraer Main adoption status
+
+Verified creation on 2026-11-12 in Caraer BV
+(`b234fe94-7d2a-4edf-9b51-f1fa6f8503cc`):
+
+- Support Ticket UUID: `7a710ab6-126a-4df8-b59b-3ca773143fac`.
+- Default trait: `table`; enabled traits in the creation response: `table`.
+- Extension: Task (`bb4d9d45-ea23-4da6-a29f-4300eb9fb19a`).
+- Groups: Details, Planning, Support, AI, System, Activity.
+- Suite: Operations. Number ID disabled.
+- Custom fields, Task trait provisioning, and relations are not yet verified as
+  completed. Creation held the provisioning lease; subsequent reads returned
+  `Authentication required`. Resume by reading this UUID, never recreating it.
+
+Assignee selection and category values remain implementation-specific; see the
+Caraer-only implementation note rather than treating them as shared defaults.
 
 ## Purpose
 
@@ -38,10 +55,17 @@ customer-facing text belongs in Message/WhatsApp records.
 
 ## Properties
 
-Object-specific properties only; do not repeat Task-inherited properties
-(`task_status`, `priority`, `assignees`, `task_reference`) or Activity base
-properties here. Types and formats follow the live MCP
+Object-specific properties only; do not duplicate fields provisioned by the
+Task trait or inherited from Task / Activity. Enabling the Task trait creates
+fields; the exact generated property keys still need live verification. Inspect
+the resulting schema before creating any shared task fields manually. The Task
+reference documents the intended shared property set, not a verified list of
+trait-generated fields. Types and formats follow the live MCP
 `property.types.list` / `property.formats.list` values.
+
+Category options are implementation-specific and deliberately not enumerated
+in this shared template. Choose stable support/product-area categories in each
+implementation; do not embed release-specific lists here.
 
 | Name | Label (NL) | Label (EN) | Type | Format | Group | Options | Settings | Required when | Icon | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -51,38 +75,101 @@ properties here. Types and formats follow the live MCP
 | `next_action` | Volgende actie | Next Action | string | multi-line | Support | — | - | - | arrowRightCircle | Next operational step. |
 | `escalation_reason` | Escalatiereden | Escalation Reason | string | multi-line | Support | — | - | - | arrowUpCircle | Why escalation is needed. |
 | `customer_contact_reference` | Klantcontactreferentie | Customer Contact Reference | string | single-line | Support | — | - | - | userCheck | Customer/contact reference when a separate reference is needed. |
-| `policy_decision` | Beleidsbesluit | Policy Decision | structure | structure | Support | — | - | - | scale | Decision and policy outcome logging; free-form JSON shape. |
-| `agent_notes` | Agentnotities | Agent Notes | string | multi-line | Support | — | - | - | note | Internal agent context, reasoning, handoff, and follow-up notes. Keep customer-facing text in Message/WhatsApp records. |
+| `agent_notes` | Agentnotities | Agent Notes | string | multi-line | AI | — | - | - | note | Internal handoff context, follow-up notes, and information still needed; keep separate from the decision rationale and customer-facing draft. |
+| `agent_reasoning` | Agentonderbouwing | Agent Reasoning | string | multi-line | AI | — | - | - | note | Concise decision rationale: relevant facts, linked evidence, assumptions, uncertainty, and why the proposed action is appropriate. Not a private chain-of-thought transcript. |
+| `ai_summary` | AI-samenvatting | AI Summary | string | multi-line | AI | — | - | - | note | AI-maintained summary of the customer's request, relevant conversation context, current resolution state, and outstanding questions. Distinct from the short issue_summary. |
+| `suggested_response` | Voorgesteld antwoord | Suggested Response | string | multi-line | AI | — | - | - | note | Draft customer-facing reply in the appropriate language and tone, grounded in the linked conversation and verified facts. Not a sent message. |
+| `ai_impact` | AI-impact | AI Impact | single-select | single-select | AI | `unknown` (Unknown), `low` (Low), `medium` (Medium), `high` (High), `critical` (Critical) | - | - | flag | AI-assessed consequence of the issue, not task priority. Use Unknown when evidence is insufficient; do not default to Low. |
+| `ai_impact_assessment` | AI-impactbeoordeling | AI Impact Assessment | string | multi-line | AI | — | - | - | note | Evidence-based explanation of affected users/accounts, blocked workflows, scope, available workaround, and consequences. Identify missing evidence and uncertainty; link relevant records. |
 
-`task_status` is the leading routing/status field (inherited from Task:
-To do, In progress, Waiting, In review, Done, Blocked, Cancelled).
+### AI group and response automation
+
+Create a dedicated **AI** property group containing `agent_reasoning`,
+`ai_summary`, `suggested_response`, `ai_impact`, `ai_impact_assessment`, and
+`agent_notes`. These fields support
+triage, response drafting, and handoff; they do not replace the operational
+Support fields or shared task status.
+
+Impact is a separate assessment from inherited task `priority`: consequences
+inform prioritisation but do not automatically overwrite priority, change
+assignment, escalate, or send a response. Define impact thresholds for the
+selected implementation. Low means limited disruption; Medium means meaningful
+but contained disruption; High means major disruption; Critical means severe
+or widespread consequences requiring immediate attention. Use Unknown when
+there is not enough evidence, and never treat a missing assessment as Low.
+Reassess impact when new evidence arrives. Keep the explanation tied to
+observable facts rather than unsupported precision or confidence scores.
+
+Refresh the summary and draft when relevant conversation context or ticket
+state changes. Keep the rationale concise and evidence-based, identify missing
+information in Agent Notes, and do not present unverified assumptions as facts
+in Suggested Response. Internal rationale and notes are not customer-facing.
+
+These properties store automation inputs and outputs; creating or filling them
+does not itself send a response. The implementation defines generation triggers
+and any review/send rules. Store actual inbound/outbound communications and
+send results on linked Message/WhatsApp records, not in these draft fields.
+
+`task_status` is the intended leading routing/status field, using the shared
+Task lifecycle (To do, In progress, Waiting, In review, Done, Blocked, Cancelled).
+Verify its provisioning source and actual options against the resulting schema.
 Open/Closed is defined by relation views, not by a stored property.
 
 ## Relations
 
 | Internal name | Connected object | Meaning |
 | --- | --- | --- |
-| `customer_tickets` | Customer | Direct link to the contact person. |
-| `account_open_tickets` | Account | Account view for open tickets; filtering belongs to the UI relation view. |
-| `account_closed_tickets` | Account | Account view for closed tickets; filtering belongs to the UI relation view. |
-| `ticket_owner` | Employee | Accountable owner; on escalation this must be an active Employee. |
-| `assignee` | Employee / Partner User / other supported task target | Working assignment; distinct from `ticket_owner`. |
+| `reported_by` | Customer / Account / Company | Reporter of the Support Ticket; link both person and organisation context when known. Forward label: Reported by. Reverse label: Reported tickets. |
+| `assignee` | Any object with the User trait enabled, subject to portal-specific selection | Record responsible for handling the ticket, including accountability on escalation. Discover eligible objects in the selected portal and confirm which may be assignees before configuring this relation. |
 
-Relation IDs (live Caraer Main, verified 2026-11-12):
+Use `reported_by` to link the known Customer and relevant Account or Company.
+Customer should normally resolve through `works_at` to the correct Account;
+preserve the direct person link as well as the organisation context.
+Open and closed ticket lists are filtered views using `task_status`, not
+separate stored relations.
 
-- `customer_tickets`: `8024082b-231d-4e8a-ad63-4cf2e9320ad5`
-- `account_open_tickets`: `829d11c6-8894-46e1-99d7-28c8b3bcabe1`
-- `account_closed_tickets`: `9287114b-2216-4968-bdc5-212eec66ea6e`
-- `ticket_owner`: `0aa55647-fed2-41cd-bdf8-3a02ecaa1c2a`
+`assignee` is the sole responsibility relation for Support Ticket; do not add a
+separate accountable-owner relation. The shared Task reference calls its
+assignment property `assignees`; verify the inherited schema and map that
+assignment to `assignee` without creating duplicate assignment relations.
 
-When known, link both `customer_tickets` and the relevant Account. This
-explicitly connects the person to the company they work at. Customer should
-normally resolve through `works_at` to exactly one correct Account.
+### Portal-specific assignee research and selection
+
+Assignee eligibility is based on the **User trait**, not an object name such as
+Employee or Partner User. Any object with that trait enabled is a candidate;
+the relation links records of the selected objects, not the object schemas
+themselves. Do not hard-code Employee as the only permitted assignee type,
+including for escalation.
+
+Before configuring `assignee` in an implementation:
+
+1. Confirm the selected portal and authenticated company identity.
+2. Inspect the portal's object schemas and enabled traits to identify every
+   object with the User trait enabled. Do not infer eligibility from names or
+   from the shared template. If discovery is incomplete, report that limitation
+   rather than treating uninspected objects as ineligible.
+3. Inspect existing assignment relations and Task-generated fields to determine
+   supported targets and avoid creating duplicate responsibility relations.
+4. Present the discovered eligible objects with their labels and internal names,
+   then ask: **“Which of these User-trait objects should be allowed as assignees
+   for Support Tickets in this portal?”**
+5. Record the user's selection in the portal-specific implementation, not as a
+   fixed target list in this shared template. Apply the confirmed selection and
+   verify the resulting relation targets and assignment behaviour.
+
+User-trait eligibility is not automatic selection: confirm the allowed object
+set before configuring it. Escalation uses an active assignee from that set;
+any narrower escalation rule is an implementation-specific decision.
+
+These are the agreed target relations, not a claim that live relations have
+already been renamed or migrated. Confirm live endpoints and existing links
+before applying the design; no live relation UUID is assigned here yet.
 
 ## Workflow rules
 
 1. Match inbound senders to exactly one Lead or Customer before processing.
 2. For a Customer match, resolve the underlying Contact and preserve/merge its
    Contact `platforms` multi-select value.
-3. Link known WhatsApp, Customer, Account, and Support Ticket records.
+3. Link known WhatsApp and Support Ticket records; connect known Customer,
+   Account, and Company reporters through `reported_by`.
 4. Keep unknown or ambiguous matches fail-closed.

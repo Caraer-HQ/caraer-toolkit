@@ -34,6 +34,7 @@ Caraer. A Partner may also be an Account when both roles are explicitly valid.
 | `partner_type` | multi-select |
 | `partner_status` | single-select |
 | `partner_notes` | multi-line text |
+| `business_registration_number` | string — NL Kvk nummer |
 
 ## Relations
 

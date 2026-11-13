@@ -32,6 +32,7 @@ become a catch-all customer-specific property set.
 | `phone` | phone |
 | `lifecycle_status` | single-select |
 | `notes` | multi-line text |
+| `business_registration_number` | string — NL Kvk nummer |
 
 ## Relations
 

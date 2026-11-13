@@ -15,10 +15,13 @@ on the `task` Extended Object, which also extends
 
 ## Provisioning boundary
 
-The trait supplies native task behaviour and the native **Activity** property
-group. It does not itself provision editable properties or relations. Task
-object-specific properties are documented in
-[`activities/task.md`](../activities/task.md).
+The trait supplies native task behaviour and creates fields. The exact
+provisioned property keys and any generated relations remain unverified
+(user clarification, 2026-11-12). Inspect the resulting live schema before
+manually creating task fields, and distinguish trait-generated fields from
+properties inherited through object extensions. The intended shared Task
+property set is documented in [`activities/task.md`](../activities/task.md);
+that document is not a verified inventory of trait-generated fields.
 
 ## Use
 

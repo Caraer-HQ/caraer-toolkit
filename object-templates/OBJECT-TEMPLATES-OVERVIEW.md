@@ -17,10 +17,10 @@ this file whenever a template or shared trait/system reference changes.
 | --- | --- | --- | --- |
 | [System properties](system-properties.md) | Shared reference | Reference | - |
 | [Page trait](traits/page.md) | Shared reference | Reference | - |
-| [Action trait](traits/action.md) | Shared reference | Reference | Confirm native provisioned property keys against a live portal before adding any. |
-| [Message trait](traits/message.md) | Shared reference | Reference | Confirm native provisioned property keys against a live portal before adding any. |
-| [Event trait](traits/event.md) | Shared reference | Reference | Confirm native provisioned property keys against a live portal before adding any. |
-| [Task trait](traits/task.md) | Shared reference | Reference | Confirm native provisioned property keys against a live portal before adding any. |
+| [Action trait](traits/action.md) | Shared reference | Reference; provisioning corrected 2026-11-12 | Task trait creates fields; exact generated keys pending live verification before manual field creation. |
+| [Message trait](traits/message.md) | Shared reference | Reference; provisioning corrected 2026-11-12 | Task trait creates fields; exact generated keys pending live verification before manual field creation. |
+| [Event trait](traits/event.md) | Shared reference | Reference; provisioning corrected 2026-11-12 | Task trait creates fields; exact generated keys pending live verification before manual field creation. |
+| [Task trait](traits/task.md) | Shared reference | Reference; provisioning corrected 2026-11-12 | Task trait creates fields; exact generated keys pending live verification before manual field creation. |
 
 ## Activities
 
@@ -103,7 +103,7 @@ this file whenever a template or shared trait/system reference changes.
 
 | Template | Formal status | Structure | Next action |
 | --- | --- | --- | --- |
-| [Support Ticket](support/support_ticket.md) | Toolkit template; naming `support_ticket` / Support Ticket / Support Tickets updated 2026-11-12 | Normalised | Create in live Caraer Main under authorization, then sync UUID and trait state back here. |
+| [Support Ticket](support/support_ticket.md) | Toolkit template; naming `support_ticket` / Support Ticket / Support Tickets updated 2026-11-12 | Normalised; relations and field scope updated 2026-11-12 | Target relations: `reported_by` (Customer / Account / Company) and `assignee`; 12 custom fields including an AI group for rationale, summary, response draft, impact assessment, and handoff notes; no `policy_decision`; categories implementation-specific; assignee targets researched from User-trait objects in the selected portal and confirmed with the user; Caraer Main object created: `7a710ab6-126a-4df8-b59b-3ca773143fac`, Table enabled, extends Task; custom fields, Task provisioning and relations unfinished after authentication failure. |
 | [Onboarding](onboarding/onboarding.md) | Central draft; independent operational record | Legacy | Confirm the live model before normalising. |
 
 ## Update rules
