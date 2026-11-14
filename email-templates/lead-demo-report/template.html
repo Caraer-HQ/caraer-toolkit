@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daily Lead Report — design preview</title>
+  <style>
+    @media screen and (max-width:600px) {
+      body {padding:12px!important;}
+      .data-table, .data-table tbody, .data-table tr, .data-table td {display:block!important;width:auto!important;}
+      .data-table tr:first-child {display:none!important;}
+      .data-table tr {margin:0 0 12px!important;background:#fff;border:1px solid #f0bfd0;border-radius:10px;overflow:hidden;}
+      .data-table td {border:0!important;border-radius:0!important;padding:9px 12px!important;overflow-wrap:anywhere;}
+      .data-table td:before {content:attr(data-label);display:block;font-size:10px;color:#77777f;margin-bottom:3px;}
+    }
+  </style>
+</head>
+<body style="margin:0;padding:24px;background:#f9f9fb;font-family:Arial,Helvetica,sans-serif;color:#171717;">
+  <!-- Design preview only. Lead rows are populated from verified Caraer Main data. -->
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:700px;margin:0 auto;">
+    <tr>
+      <td style="padding:24px 32px 26px;background:#111111;border-top:5px solid #ed4265;border-radius:12px;text-align:center;">
+        <a href="https://caraer.com" style="display:block;width:48px;margin:0 auto;text-decoration:none;border:0;">
+          <img src="https://caraer.ams3.digitaloceanspaces.com/b234fe94-7d2a-4edf-9b51-f1fa6f8503cc/files/webpages/attachments/fc04ca44-ee49-45bb-bb13-19a92fe20890_23.02_caraer_logo_icon.png" width="48" height="48" alt="Caraer" style="display:inline-block;width:48px;height:48px;vertical-align:middle;border:0;outline:none;text-decoration:none;">
+        </a>
+        <div style="margin-top:18px;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:#f4a6b7;">Daily update</div>
+        <h1 style="margin:7px 0 4px;font-size:26px;line-height:1.25;color:#ffffff;">Lead &amp; demo report</h1>
+        <div style="font-size:14px;color:#d6d3d4;">{{report_date}} · New leads received today</div>
+      </td>
+    </tr>
+    <!-- Maximum three verified action alerts plus a separate data-quality alert. -->
+    {{alert_blocks}}
+    <tr>
+      <td style="padding:24px 0 8px;">
+        <table role="presentation" width="100%" cellspacing="8" cellpadding="0" border="0">
+          <tr>
+            <td width="33.33%" style="padding:12px 14px;background:#ffffff;border:1px solid #f0bfd0;border-radius:10px;">
+              <div style="font-size:11px;color:#62565a;">New leads</div><div style="margin-top:4px;font-size:24px;font-weight:bold;color:#ed4265;">{{new_lead_count}}</div>
+            </td>
+            <td width="10"></td>
+            <td width="33.33%" style="padding:12px 14px;background:#ffffff;border:1px solid #f0bfd0;border-radius:10px;">
+              <div style="font-size:11px;color:#62565a;">Demos planned</div><div style="margin-top:4px;font-size:24px;font-weight:bold;color:#ed4265;">{{demo_count}}</div>
+            </td>
+            <td width="10"></td>
+            <td width="33.33%" style="padding:12px 14px;background:#ffffff;border:1px solid #f0bfd0;border-radius:10px;">
+              <div style="font-size:11px;color:#62565a;">Follow-up needed</div><div style="margin-top:4px;font-size:24px;font-weight:bold;color:#ed4265;">{{follow_up_count}}</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:20px 0 4px;">
+        <h2 style="margin:0 0 10px;font-size:18px;color:#ed4265;">Qualified leads</h2>
+        <table class="data-table" role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0 8px;font-size:13px;">
+          <tr style="background:#111111;color:#ffffff;text-align:left;">
+            <th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:8px 0 0 8px;">Lead</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Qualification</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Agent reasoning</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:0 8px 8px 0;">Next step</th>
+          </tr>
+          <!-- Qualification values in rows should render as colored inline badge labels. -->
+          {{qualified_lead_rows}}
+        </table>
+        <div style="height:18px;line-height:18px;font-size:1px;">&nbsp;</div>
+        <h2 style="margin:0 0 10px;font-size:18px;color:#171717;">New leads</h2>
+        <table class="data-table" role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0 8px;font-size:13px;">
+          <tr style="background:#111111;color:#ffffff;text-align:left;">
+            <th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:8px 0 0 8px;">Lead</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Qualification</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:0 8px 8px 0;">Next step</th>
+          </tr>
+          <!-- Qualification values in rows should render as colored inline badge labels. -->
+          {{new_lead_rows}}
+        </table>
+        <div style="padding:12px 0 0;font-size:12px;color:#77777f;">Qualified leads are listed first. New-lead count includes records created today once; if a record is also qualified, count it once and list it under Qualified Leads. Qualification labels use the recorded Main status; missing detail fields are called out explicitly.</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:22px 0 4px;">
+        <h2 style="margin:0 0 10px;font-size:18px;color:#34343a;">Upcoming demos</h2>
+        <table class="data-table" role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0 8px;font-size:13px;">
+          <tr style="background:#111111;color:#ffffff;text-align:left;">
+            <th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:8px 0 0 8px;">When</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Lead</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:0 8px 8px 0;">Owner</th>
+          </tr>
+          {{demo_rows}}
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:22px 0 28px;">
+        <h2 style="margin:0 0 10px;font-size:18px;color:#34343a;">Follow-up overview</h2>
+        <table class="data-table" role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0 8px;font-size:13px;">
+          <tr style="background:#111111;color:#ffffff;text-align:left;">
+            <th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:8px 0 0 8px;">Lead</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Summary</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Assignee</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;">Todo</th><th style="padding:12px 10px;background:#111111;color:#ffffff;border:0;border-radius:0 8px 8px 0;">Status</th>
+          </tr>
+          <!-- One row per lead; display Main task assignee/status, or state clearly when no task exists. -->
+          {{follow_up_rows}}
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:16px 0;background:transparent;border-top:1px solid #e7edf4;font-size:11px;line-height:1.5;color:#718096;">
+        Automated daily snapshot · {{generated_at}} · Data period: {{period_start}}–{{period_end}} (Europe/Amsterdam)<br>
+        If no records are available for a section, it will say “None recorded” rather than infer missing information.
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

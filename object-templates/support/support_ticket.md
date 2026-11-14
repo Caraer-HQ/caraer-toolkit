@@ -1,7 +1,7 @@
 # Support Ticket Object Template
 
 Status: Toolkit template; naming updated 2026-11-12 for live adoption in Caraer
-Main. Relation design updated 2026-11-12; live adoption partially completed.
+Main. Live schema adopted 2026-11-13; see verification boundary below.
 
 - Internal name: `support_ticket`
 - Label: Support Ticket
@@ -13,13 +13,19 @@ Verified creation on 2026-11-12 in Caraer BV
 (`b234fe94-7d2a-4edf-9b51-f1fa6f8503cc`):
 
 - Support Ticket UUID: `7a710ab6-126a-4df8-b59b-3ca773143fac`.
-- Default trait: `table`; enabled traits in the creation response: `table`.
-- Extension: Task (`bb4d9d45-ea23-4da6-a29f-4300eb9fb19a`).
+- Default trait: `table`; Table and Task enabled (Task read back 2026-11-13).
+- Extensions: Task (`bb4d9d45-ea23-4da6-a29f-4300eb9fb19a`) and
+  Activity (`3823542c-b0d5-4b01-b905-0d3f82cf5f0d`), verified after Task enablement.
 - Groups: Details, Planning, Support, AI, System, Activity.
 - Suite: Operations. Number ID disabled.
-- Custom fields, Task trait provisioning, and relations are not yet verified as
-  completed. Creation held the provisioning lease; subsequent reads returned
-  `Authentication required`. Resume by reading this UUID, never recreating it.
+- All 12 object-specific fields created and read back with the shared Task /
+  Activity fields (31 properties). Priority then added successfully using the
+  portal's existing options; expected total 32. `policy_decision` is absent.
+- `reported_by` and `assignee` configured and their context-specific targets
+  read back. Assignee selection remains an implementation-specific decision.
+- Final consolidated read after Priority creation returned `Authentication
+  required`; the Priority write succeeded, but its separate final read is not
+  verified. Do not recreate this object or duplicate existing fields.
 
 Assignee selection and category values remain implementation-specific; see the
 Caraer-only implementation note rather than treating them as shared defaults.

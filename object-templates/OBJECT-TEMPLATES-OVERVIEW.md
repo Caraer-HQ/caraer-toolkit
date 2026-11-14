@@ -103,7 +103,7 @@ this file whenever a template or shared trait/system reference changes.
 
 | Template | Formal status | Structure | Next action |
 | --- | --- | --- | --- |
-| [Support Ticket](support/support_ticket.md) | Toolkit template; naming `support_ticket` / Support Ticket / Support Tickets updated 2026-11-12 | Normalised; relations and field scope updated 2026-11-12 | Target relations: `reported_by` (Customer / Account / Company) and `assignee`; 12 custom fields including an AI group for rationale, summary, response draft, impact assessment, and handoff notes; no `policy_decision`; categories implementation-specific; assignee targets researched from User-trait objects in the selected portal and confirmed with the user; Caraer Main object created: `7a710ab6-126a-4df8-b59b-3ca773143fac`, Table enabled, extends Task; custom fields, Task provisioning and relations unfinished after authentication failure. |
+| [Support Ticket](support/support_ticket.md) | Toolkit template; live schema adopted 2026-11-13 | Normalised; Table/Task and Task/Activity extensions verified | Caraer Main `7a710ab6-126a-4df8-b59b-3ca773143fac`: 12 support/AI fields created and read back; `reported_by` targets Customer / Account / Company and `assignee` targets verified. Priority added with existing portal options; final consolidated read blocked by authentication. No `policy_decision`; categories and assignee selection remain portal-specific. |
 | [Onboarding](onboarding/onboarding.md) | Central draft; independent operational record | Legacy | Confirm the live model before normalising. |
 
 ## Update rules
